@@ -15,7 +15,7 @@ Ser reconocidos a nivel global como un referente de innovación y excelencia en 
 | Software Architect  | Frontend Developer|  Backend Developer |
 |     :---:      |     :---:      |     :---:      |
 |  foto   | foto     |  foto    |
-|nombre     | [Sebastián Calderón](https://github.com/cbhas)       | nombre      |
+| [Alex Ramírez](https://github.com/ALISrj)     | [Sebastián Calderón](https://github.com/cbhas)       | nombre      |
 
 | UX/UI Designer |  Security | Desarrollador Backend (No recuerdo el ultimo rol) |
 |     :---:      |     :---:      |     :---:      |
