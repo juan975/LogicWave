@@ -1,4 +1,4 @@
-# ¿Quiénes somos?
+# **¿Quiénes somos?**
 
 # LogicWave
 
@@ -9,3 +9,15 @@ Nuestra misión es desarrollar soluciones innovadoras que resuelvan retos espec�
 
 ## Visión
 Ser reconocidos a nivel global como un referente de innovación y excelencia en el desarrollo de software. Buscamos establecer nuevos estándares en la industria, siendo sinónimo de soluciones que combinan de forma magistral la lógica, la funcionalidad y un diseño de alto impacto.
+
+## Conoce a nuestro equipo
+
+| Software Architect  | Frontend Developer|  Backend Developer |
+|     :---:      |     :---:      |     :---:      |
+|  foto   | foto     |  foto    |
+|nombre     | nombre       | nombre      |
+
+| UX/UI Designer |  Security | Desarrollador Backend (No recuerdo el ultimo rol) |
+|     :---:      |     :---:      |     :---:      |
+|  foto   | foto     |  foto    |
+|Dara Van Gijsel | nombre       | nombre      |
