@@ -1,3 +1,5 @@
+# ¿Quiénes somos?
+
 # LogicWave
 
 Somos un equipo de desarrollo de software joven y dinámico, en constante aprendizaje a la vanguardia de la tecnología. Nuestro equipo multifuncional potencia nuestra capacidad para abordar distintas perspectivas sobre las problemáticas, generando de esta manera una solución digital intuitiva, eficiente y de alto impacto. 
