@@ -14,7 +14,7 @@ Ser reconocidos a nivel global como un referente de innovación y excelencia en 
 
 | Software Architect  | Frontend Developer|  Backend Developer |
 |     :---:      |     :---:      |     :---:      |
-|  foto   | foto     |  foto    |
+|  <img src="https://github.com/user-attachments/assets/b3371101-ce8b-4489-b87b-2d16157cd30a" width="150"> | foto     |  foto    |
 | [Alex Ramírez](https://github.com/ALISrj)     | [Sebastián Calderón](https://github.com/cbhas)       | nombre      |
 
 | UX/UI Designer |  Security | Desarrollador Backend (No recuerdo el ultimo rol) |
