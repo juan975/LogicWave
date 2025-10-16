@@ -14,8 +14,9 @@ Ser reconocidos a nivel global como un referente de innovación y excelencia en 
 
 | Software Architect  | Frontend Developer|  Backend Developer |
 |     :---:      |     :---:      |     :---:      |
-|  <img src="https://github.com/user-attachments/assets/b3371101-ce8b-4489-b87b-2d16157cd30a" width="150"> | <img src="https://github.com/user-attachments/assets/bf1f82ed-4b7e-4ea3-ab2d-fb2b95a2a8e8" width="105">     |  foto    |
-| [Alex Ramírez](https://github.com/ALISrj)     | [Sebastián Calderón](https://github.com/cbhas)       | nombre      | Carlos Mejia 
+|  <img src="https://github.com/user-attachments/assets/b3371101-ce8b-4489-b87b-2d16157cd30a" width="150"> | <img src="https://github.com/user-attachments/assets/bf1f82ed-4b7e-4ea3-ab2d-fb2b95a2a8e8" width="105">     |  <img src="https://github.com/user-attachments/assets/9b9625ad-382d-499c-98de-5e0caf2f0b03" width="115">
+"" width="105">    |
+| [Alex Ramírez](https://github.com/ALISrj)     | [Sebastián Calderón](https://github.com/cbhas)       | nombre      | [Carlos Mejia](https://github.com/cdm18) 
 
 | UX/UI Designer |  Test and Security | DBA |
 |     :---:      |     :---:      |     :---:      |
