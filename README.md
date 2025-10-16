@@ -19,5 +19,5 @@ Ser reconocidos a nivel global como un referente de innovación y excelencia en 
 
 | UX/UI Designer |  Security | Desarrollador Backend (No recuerdo el ultimo rol) |
 |     :---:      |     :---:      |     :---:      |
-|  foto   | foto     |  foto    |
-|Dara Van Gijsel | nombre       | nombre      |
+|  <img src="https://github.com/user-attachments/assets/0c15fd69-3fa7-4b35-b4c2-3cb212e6ad4b" width="150">  | foto     |  foto    |
+|[Dara Van Gijsel](https://github.com/daravan1) | nombre       | nombre      |
