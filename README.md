@@ -17,7 +17,7 @@ Ser reconocidos a nivel global como un referente de innovación y excelencia en 
 |  <img src="https://github.com/user-attachments/assets/b3371101-ce8b-4489-b87b-2d16157cd30a" width="150"> | foto     |  foto    |
 | [Alex Ramírez](https://github.com/ALISrj)     | [Sebastián Calderón](https://github.com/cbhas)       | nombre      | [Carlos Mejia](https://github.com/cdm18)
 
-| UX/UI Designer |  Security | Desarrollador Backend (No recuerdo el ultimo rol) |
+| UX/UI Designer |  Test and Security | DBA |
 |     :---:      |     :---:      |     :---:      |
-|  <img src="https://github.com/user-attachments/assets/0c15fd69-3fa7-4b35-b4c2-3cb212e6ad4b" width="150">  | foto     |  foto    |
-|[Dara Van Gijsel](https://github.com/daravan1) | nombre       | nombre      |
+|  <img src="https://github.com/user-attachments/assets/0c15fd69-3fa7-4b35-b4c2-3cb212e6ad4b" width="150">  | foto     |  <img src="https://github.com/user-attachments/assets/c5ddc7d0-6334-4463-9ba9-7479d652c573" width="150">  |
+|[Dara Van Gijsel](https://github.com/daravan1) | nombre       | [Juan Espinosa](https://github.com/juan975)      |
