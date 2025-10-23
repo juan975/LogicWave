@@ -1,4 +1,3 @@
-<img width="1024" height="1024" alt="Gemini_Generated_Image_ghelysghelysghel" src="https://github.com/user-attachments/assets/e671e400-6927-4e1a-a492-15981072ba4a" />
 
 
 # **¿Quiénes somos?**
