@@ -1,4 +1,6 @@
-<img width="300" height="300" alt="logo" src="https://github.com/user-attachments/assets/5bda0172-4a90-48cc-8eb6-0cd4c63ef08b" />
+<p align="center">
+  <img width="348" height="148" alt="logo" src="https://github.com/user-attachments/assets/771313e7-ceb4-4e95-94ca-73049c53a3fc" />
+</p>
 
 # **¿Quiénes somos?**
 
