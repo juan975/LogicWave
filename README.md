@@ -1,4 +1,6 @@
-<img width="300" height="300" alt="logo" src="https://github.com/user-attachments/assets/5bda0172-4a90-48cc-8eb6-0cd4c63ef08b" />
+<p align="center">
+  <img src="<img width="400" height="400" alt="logo" src="https://github.com/user-attachments/assets/96247d91-c0af-4a1e-b219-321b1838acb2" />" alt="LogicWave Logo" width="300">
+</p>
 
 # **¿Quiénes somos?**
 
