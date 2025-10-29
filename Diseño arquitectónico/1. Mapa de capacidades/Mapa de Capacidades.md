@@ -31,13 +31,13 @@ Estos módulos están organizados de manera **jerárquica**, lo que permite a lo
 
 ![Mapa de Capacidades](https://github.com/user-attachments/assets/b83c1264-166c-4227-b827-d8cb422077d5)
 
-Este mapa fue diseñado para una aplicación integral destinada a la **Bolsa de Empleos Conjunta de la Cámara de Industrias de Loja**.  
-La aplicación se organiza en **cuatro grandes áreas de capacidad**, que cubren todo el ciclo de vida del reclutamiento y la colocación:
+Este mapa fue diseñado para una aplicación integral destinada a la Bolsa de Empleos Conjunta de la Cámara de Industrias de Loja.
+La aplicación se organiza en cuatro grandes áreas de capacidad, que cubren todo el ciclo de vida del reclutamiento y la colocación:
 
-1. 🧾 **Gestión de Perfiles**  
-2. 📊 **Evaluación y Ponderación del Talento**  
-3. 🤝 **Matching y Colocación Laboral**  
-4. 💰 **Proceso Laboral y Monetización**
+1.  [Gestión de Perfiles](#1-gestión-de-perfiles)
+2.  [Evaluación y Ponderación del Talento](#2-evaluación-y-ponderación-del-talento)
+3.  [Matching y Colocación Laboral](#3-matching-y-colocación-laboral)
+4.  [Proceso Laboral y Monetización](#4-proceso-laboral-y-monetización)
 
 ---
 
@@ -135,3 +135,4 @@ Gestiona el modelo de negocio y mide su efectividad.
   🌐 **Universidad Técnica Particular de Loja (UTPL)**  
   <br>📘 *Bolsa de Empleos Conjunta - Cámara de Industrias Loja*
 </p>
+
