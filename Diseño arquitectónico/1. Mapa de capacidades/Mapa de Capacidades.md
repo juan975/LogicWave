@@ -2,145 +2,144 @@
   <img src="https://i.postimg.cc/13qQdqZs/utpllogo.png" alt="Logo UTPL" width="150"/>
 </p>
 
-# 💼 **Mapa de Capacidades para la Aplicación Bolsa de Empleos**
+# **Mapa de Capacidades - Aplicación de Gestión de Postulaciones**
 
 ---
 
-## 🧭 ¿Qué es un Mapa de Capacidades?
+## ¿Qué es un Mapa de Capacidades?
 
-Un **Mapa de Capacidades** es una herramienta visual que ayuda a estructurar y definir las funciones y habilidades esenciales de un sistema o aplicación.  
-Su propósito es ofrecer una visión clara de las capacidades que un sistema debe tener para cumplir sus objetivos.
+Un **Mapa de Capacidades** es una herramienta visual que ayuda a estructurar y definir las funciones y habilidades esenciales de un sistema o aplicación. Su propósito es ofrecer una visión clara de las capacidades que un sistema debe tener para cumplir sus objetivos.
 
 En el contexto de una aplicación de software, un mapa de capacidades permite:
-- Identificar las áreas clave de funcionalidad.  
-- Agrupar actividades relacionadas.  
-- Visualizar cómo se interconectan los diferentes módulos del sistema.  
+- Identificar las áreas clave de funcionalidad.
+- Agrupar actividades relacionadas.
+- Visualizar cómo se interconectan los diferentes módulos del sistema.
 
 ---
 
-### 🧩 **Estructura del Mapa de Capacidades de la Bolsa de Empleos Conjunta - Cámara de Industrias Loja**
+### **Estructura de este Mapa de Capacidades**
 
-Un mapa de capacidades generalmente se divide en **módulos o áreas de alto nivel** que representan conjuntos de funcionalidades interrelacionadas.  
-Cada módulo contiene **subfunciones o componentes** que especifican con mayor detalle las capacidades que el sistema debe proporcionar.
-
-Estos módulos están organizados de manera **jerárquica**, lo que permite a los desarrolladores, diseñadores y *stakeholders* entender el alcance completo de las funcionalidades.
+Este mapa de capacidades detalla el flujo completo de una plataforma de bolsa de empleos. Los módulos están organizados de manera jerárquica y secuencial, permitiendo a los desarrolladores, diseñadores y *stakeholders* entender el alcance de cada funcionalidad, desde el registro inicial hasta la aceptación del postulante.
 
 ---
 
-## 🗺️ **Mapa de Capacidades - Bolsa de Empleos Conjunta (Cámara de Industrias Loja)**
+## **Mapa de Capacidades - Gestión de Postulaciones**
 
-![Mapa de Capacidades](https://github.com/user-attachments/assets/b83c1264-166c-4227-b827-d8cb422077d5)
+![Mapa de Capacidades](https://github.com/user-attachments/assets/162efbbe-a985-4a0c-9532-a4e8ad182aff)
 
-Este mapa fue diseñado para una aplicación integral destinada a la **Bolsa de Empleos Conjunta de la Cámara de Industrias de Loja**.  
-La aplicación se organiza en **cuatro grandes áreas de capacidad**, que cubren todo el ciclo de vida del reclutamiento y la colocación:
+Este mapa fue diseñado para una aplicación integral de gestión de postulaciones. La aplicación se organiza en **cuatro grandes áreas de capacidad**, que cubren todo el ciclo de vida del reclutamiento:
 
-1. 🧾 [**Gestión de Perfiles**](#1️⃣-gestión-de-perfiles)  
-2. 📊 [**Evaluación y Ponderación del Talento**](#2️⃣-evaluación-y-ponderación-del-talento)  
-3. 🤝 [**Matching y Colocación Laboral**](#3️⃣-matching-y-colocación-laboral)  
-4. 💰 [**Proceso Laboral y Monetización**](#4️⃣-proceso-laboral-y-monetización)
+1. [**Gestión de Perfiles**](#1-gestión-de-perfiles)
+2. [**Gestión de Ofertas Laborales**](#2-gestión-de-ofertas-laborales)
+3. [**Descubrimiento y Postulación**](#3-descubrimiento-y-postulación)
+4. [**Gestión de Postulaciones**](#4-gestión-de-postulaciones)
 
 ---
 
-# 🧱 **Descripción de las Áreas de Capacidad**
+# **Descripción de las Áreas de Capacidad**
 
 A continuación, se detallan los módulos y funcionalidades de cada área principal.
 
 ---
 
-## 1️⃣ **Gestión de Perfiles**
+## 1. **Gestión de Perfiles**
 
-Esta área abarca todas las funcionalidades relacionadas con la **creación, administración y validación de los perfiles** de las empresas (ofertantes) y los empleados (candidatos). Se compone de:
+Esta área abarca la administración de los actores clave del sistema: los empleadores (empresas) y los candidatos (postulantes).
 
-* [🏢 1.1. Registro de empresas](#-11-registro-de-empresas)
-* [👤 1.2. Registro de empleados](#-12-registro-de-empleados)
-* [⚖️ 1.3. Cumplimiento legal](#-13-cumplimiento-legal)
+* [1.1. Administración de empleadores](#11-administración-de-empleadores)
+* [1.2. Administración de candidatos](#12-administración-de-candidatos)
 
-### 🏢 1.1. Registro de empresas
-Gestión de la información y actividades de las organizaciones que publican vacantes.
+### 1.1. Administración de empleadores
+Define las capacidades para que las empresas se registren y sean validadas en la plataforma.
 
-- **Gestión de Perfil Empresarial:** Registro de empresas, datos básicos y clasificación del tipo (emisora, receptora).  
-- **Gestión de Acuerdos:** Administración de convenios interempresariales y políticas de cesión de talento.  
-- **Gestión de Vacantes:** Publicación de vacantes, recepción y evaluación inicial de perfiles.
+- **Adm. de empleadores:** Permite registrar los datos de la empresa.
+- **Validar empresas:** Proceso para verificar y validar la autenticidad de la empresa registrada.
 
-### 👤 1.2. Registro de empleados
-Captura y administración de la información relevante del talento (candidatos).
+### 1.2. Administración de candidatos
+Se centra en la captura completa y estructurada del perfil del postulante.
 
-- **Datos del Perfil:** Información personal y laboral.  
-- **Competencias y Habilidades:** Registro de habilidades técnicas (duras) y blandas.  
-- **Trayectoria Profesional:** Formación académica, certificaciones y experiencia.  
-- **Nivelación y Desempeño:** Registro del nivel laboral (Junior, Mid-level, Senior) y evaluaciones de desempeño.
-
-### ⚖️ 1.3. Cumplimiento legal
-Garantiza la **validez y legalidad** de la información registrada.
-
-- **Validación de Identidad:** Verificación de cédula y edad.  
-- **Validación Laboral:** Confirmación del estado de afiliación.  
-- **Validación Documental:** Gestión de documentación obligatoria.
+- **Ingresar datos de candidatos:** Formulario para información personal, de ubicación y profesional (formación, habilidades técnicas, competencias, experiencia).
+- **Perfiles requeridos:** Define los campos y requisitos mínimos del perfil.
+- **Validar candidatos:** Proceso para verificar la información y autenticidad del candidato.
 
 ---
 
-## 2️⃣ **Evaluación y Ponderación del Talento**
+## 2. **Gestión de Ofertas Laborales**
 
-Se enfoca en los **procesos para clasificar y calificar la efectividad, potencial y adecuación** de los candidatos a las vacantes. Se compone de:
+Esta área se enfoca en el ciclo de vida de una vacante, desde su creación hasta su publicación y gestión continua.
 
-* [🧮 2.1. Clasificación de efectividad laboral](#-21-clasificación-de-efectividad-laboral)
-* [📑 2.2. Generación de informes de ponderación](#-22-generación-de-informes-de-ponderación)
+* [2.1. Definición de vacantes](#21-definición-de-vacantes)
+* [2.2. Gestión del ciclo de vida de la oferta](#22-gestión-del-ciclo-de-vida-de-la-oferta)
 
-### 🧮 2.1. Clasificación de efectividad laboral
-Define los criterios para evaluar objetivamente al talento.
+### 2.1. Definición de vacantes
+Capacidades para crear una oferta de trabajo detallada.
 
-- **Evaluación de Desempeño:** Desempeño histórico y logros empresariales.  
-- **Credenciales y Experiencia:** Certificaciones, antigüedad y tipo de titulación.  
-- **Factores Adicionales:** Actitud, nivel laboral y evaluaciones previas.
+- **Ingresar oferta laboral:** Campos para descripción, prioridad, salario, modalidad y ubicación.
+- **Competencias:** Sección para definir las competencias, formación y experiencia requeridas.
+- **Publicar oferta laboral:** Acción final para hacer visible la vacante.
 
-### 📑 2.2. Generación de informes de ponderación
-Consolida evaluaciones y datos para apoyar la toma de decisiones.
+### 2.2. Gestión del ciclo de vida de la oferta
+Permite administrar las ofertas publicadas a lo largo del tiempo.
 
-- **Consolidación de Resultados:** Procesa los datos de efectividad.  
-- **Puntaje Global:** Asigna un ranking general al perfil.  
-- **Toma de Decisión:** Interfaz para aceptar o rechazar candidatos.
-
----
-
-## 3️⃣ **Matching y Colocación Laboral**
-
-Núcleo interactivo de la aplicación: conecta **candidatos con vacantes adecuadas** de forma inteligente. Se compone de:
-
-* [💼 3.1. Colocación Laboral](#-31-colocación-laboral)
-* [🔍 3.2. Matching](#-32-matching)
-
-### 💼 3.1. Colocación Laboral
-Gestión de coincidencias y proceso de aplicación.
-
-- **Gestión de Coincidencias:** Filtrado y recomendaciones personalizadas.  
-- **Cobertura de Vacantes:** Confirmación de candidatos y ofertas laborales formales.
-
-### 🔍 3.2. Matching
-Gestión activa de las interacciones entre candidatos y ofertas.
-
-- **Seguimiento de Interés:** Monitoreo de actividad e interés en ofertas.  
-- **Resolución de Discrepancias:** Manejo de desajustes, rechazos y reasignaciones.
+- **Administrar oferta:** Funciones para verificar el estado de una oferta (publicada, en vigencia, en cierre) y actualizarla.
+- **Administrar ofertas finalizadas:** Capacidades para archivar ofertas cerradas y refinar búsquedas de ofertas antiguas.
 
 ---
 
-## 4️⃣ **Proceso Laboral y Monetización**
+## 3. **Descubrimiento y Postulación**
 
-Área final: cubre la **formalización de la contratación** y los **aspectos de negocio**. Se compone de:
+Esta área contiene el núcleo de la plataforma: la conexión entre candidatos y ofertas. Incluye los motores de búsqueda, filtros y el proceso de postulación.
 
-* [📋 4.1. Cumplimiento del Proceso Laboral](#-41-cumplimiento-del-proceso-laboral)
-* [💹 4.2. Monetización y Analítica de Resultados](#-42-monetización-y-analítica-de-resultados)
+* [3.1. Gestión de Postulaciones (Búsqueda)](#31-gestión-de-postulaciones-búsqueda)
+* [3.2. Clasificación de talentos](#32-clasificación-de-talentos)
+* [3.3. Clasificación de ofertas](#33-clasificación-de-ofertas)
+* [3.4. Administración de catálogo de ofertas](#34-administración-de-catálogo-de-ofertas)
+* [3.5. Postulación a oferta](#35-postulación-a-oferta)
 
-### 📋 4.1. Cumplimiento del Proceso Laboral
-Garantiza la transición formal del candidato a empleado.
+### 3.1. Gestión de Postulaciones (Búsqueda)
+Herramientas de filtrado para que los candidatos encuentren vacantes.
 
-- **Monitoreo y Control:** Validación de contratos, anexos y expedientes.  
-- **Validación y Evidencia:** Confirmación de condiciones laborales y registro de evidencias.
+- **Filtros:** Capacidad de filtrar postulaciones populares, por fecha, por competencias, por experiencia y por formación.
 
-### 💹 4.2. Monetización y Analítica de Resultados
-Gestiona el modelo de negocio y mide su efectividad.
+### 3.2. Clasificación de talentos
+Módulo para analizar y segmentar a los candidatos registrados.
 
-- **Cálculo de Comisiones:** Sistema de cálculo por colocación, sueldo o contrato.  
-- **Analítica de Negocio:** Reportes de colocación, tasas de éxito y análisis de rendimiento.
+- **Análisis y clasificación:** Permite analizar candidatos y clasificarlos por competencias, experiencia, formación, ubicación, perfiles profesionales, niveles de experiencia y sectores económicos.
+
+### 3.3. Clasificación de ofertas
+Módulo para analizar y segmentar las ofertas de trabajo disponibles.
+
+- **Análisis y clasificación:** Permite analizar perfiles requeridos y clasificarlos por competencias, experiencia, formación, ubicación, tipo de empleo, industria y nivel jerárquico.
+
+### 3.4. Administración de catálogo de ofertas
+Funcionalidades para gestionar la visualización y descubrimiento de ofertas.
+
+- **Catálogo de ofertas:** Resumir ofertas, notificar nuevas ofertas (por perfil profesional o sector), monitorear la demanda (por sector o ubicación) y mantener indicadores (de vacantes cubiertas o activas).
+
+### 3.5. Postulación a oferta
+Flujo que sigue el candidato para aplicar a una vacante.
+
+- **Postular:** Incluye la presentación de la oferta, la carga o selección del CV, y la presentación del canal de postulación.
+- **Notificación:** Avisos sobre el estado de la postulación y cambios en la misma.
 
 ---
 
+## 4. **Gestión de Postulaciones**
+
+Esta área final cubre el *backend* de la gestión de talento: la administración, revisión y aceptación de las postulaciones recibidas por parte de los empleadores.
+
+* [4.1. Administrar Postulaciones](#41-administrar-postulaciones)
+* [4.2. Aceptación de postulante](#42-aceptación-de-postulante)
+
+### 4.1. Administrar Postulaciones
+Panel de control del empleador para gestionar a los candidatos que han aplicado.
+
+- **Filtros y Búsqueda:** Herramientas para filtrar postulaciones por fecha y buscar por postulación.
+
+### 4.2. Aceptación de postulante
+Flujo de decisión final del empleador sobre un candidato.
+
+- **Evaluación:** Incluye la evaluación de postulantes y la revisión del perfil.
+- **Decisión:** Capacidades para seleccionar candidatos y rechazar a otros.
+
+---
