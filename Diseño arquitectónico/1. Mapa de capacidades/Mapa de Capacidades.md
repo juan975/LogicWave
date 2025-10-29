@@ -144,7 +144,3 @@ Gestiona el modelo de negocio y mide su efectividad.
 
 ---
 
-<p align="center">
-  🌐 **Universidad Técnica Particular de Loja (UTPL)**  
-  <br>📘 *Bolsa de Empleos Conjunta - Cámara de Industrias Loja*
-</p>
