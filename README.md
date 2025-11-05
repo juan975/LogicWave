@@ -88,9 +88,10 @@ Una aplicación **web** y **móvil nativa**, con **soporte en la nube**, desarro
 - Contribuir al desarrollo económico local mediante una gestión moderna y **eficiente** del talento humano.
 
 ### Prototipo Figma
-<p>
-  <!-- Reemplaza el # por el enlace real a tu prototipo -->
-  <a href="#" target="_blank"><img src="https://img.shields.io/badge/Figma-Ver%20prototipo-ff7262?logo=figma&logoColor=white" alt="Prototipo Figma"></a>
+<p align="center">
+  <img width="300" height="300" alt="IHK2Ge" src="https://github.com/user-attachments/assets/99fe8ffa-6eec-488c-9526-98254657c3e7" />
+  <br>
+  <a href="https://miter-berry-29304449.figma.site/" target="_blank"><img src="https://img.shields.io/badge/Figma-Ver%20prototipo-ff7262?logo=figma&logoColor=white" alt="Prototipo Figma"></a>
 </p>
 
 ---
