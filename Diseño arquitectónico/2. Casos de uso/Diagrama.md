@@ -2,7 +2,11 @@
   <img src="https://i.postimg.cc/13qQdqZs/utpllogo.png" alt="Logo UTPL" width="150"/>
 </p>
 
-# **Diagrama de Casos de Uso - Aplicación de Gestión de Postulaciones**
+<h1 align='center'>
+  Diagrama de Casos de Uso - Aplicación de Gestión de Postulaciones
+  <br>
+  "CAIL"
+</h1>
 
 ---
 
@@ -64,4 +68,5 @@ Basado en el Mapa de Capacidades, se identifican los siguientes actores y casos 
 Este diagrama cubre la administración de los actores clave del sistema: los empleadores y los candidatos.
 
 *[Aquí puedes insertar tu imagen del Diagrama de Casos de Uso para Gestión de Perfiles]*
+
 
