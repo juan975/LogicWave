@@ -5,9 +5,9 @@
 
 
 <h1 align='center'>
-  Mapa de Capacidades de la Aplicación Bolsa de Empleos  -"CAIL"
+  Mapa de Capacidades de la Aplicación Bolsa de Empleos
   <br>
-  "Aplicación mantenimiento de flotas"
+  "CAIL"
 </h1>
 
 
@@ -150,6 +150,7 @@ Flujo de decisión final del empleador sobre un candidato.
 - **Decisión:** Capacidades para seleccionar candidatos y rechazar a otros.
 
 ---
+
 
 
 
