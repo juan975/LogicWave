@@ -63,15 +63,39 @@ Basado en el Mapa de Capacidades, se identifican los siguientes actores y casos 
 
 ---
 
-## **1. Diagrama de Caso de Uso: Gestión de Perfiles**
+## **1. Diagrama de Caso de Uso: Administracion de perfiles**
 
 Este diagrama cubre la administración de los actores clave del sistema: los empleadores y los candidatos.
 
-*[Aquí puedes insertar tu imagen del Diagrama de Casos de Uso para Gestión de Perfiles]*
 
-![Caso de uso Registro](https://github.com/JonathanCoronel/uploadimg/blob/main/Imagenes%20Arquitectura/Diagrama%20de%20Caso1.drawio.png?raw=true)
+![Caso de uso Perfiles](https://github.com/user-attachments/assets/db28aadb-bd4e-4970-a7ae-14ff7b1ed72f)
 
-<img width="861" height="591" alt="image" src="https://github.com/user-attachments/assets/db28aadb-bd4e-4970-a7ae-14ff7b1ed72f" />
+
+
+
+## **2. Diagrama de Caso de Uso: Administracion de candidatos**
+
+![Caso de uso Candidatos](https://github.com/user-attachments/assets/1480a3ad-94cd-4341-a51e-706e322f6ce6)
+
+
+## **3. Diagrama de Caso de Uso: Definicioon de vacantes**
+
+
+![Caso de uso Vacantes](https://github.com/user-attachments/assets/4832b462-8585-4561-ab92-de4fdfb8332d)
+
+
+## **4. Diagrama de Caso de Uso: Ciclo de vida Oferta**
+
+
+![Caso de uso Ciclo Oferta](https://github.com/user-attachments/assets/fe87a559-4855-46af-87f9-2552a3cc9657)
+
+
+
+
+
+
+
+
 
 
 
