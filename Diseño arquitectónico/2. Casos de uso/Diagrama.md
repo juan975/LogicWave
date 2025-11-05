@@ -69,5 +69,11 @@ Este diagrama cubre la administración de los actores clave del sistema: los emp
 
 *[Aquí puedes insertar tu imagen del Diagrama de Casos de Uso para Gestión de Perfiles]*
 
+![Caso de uso Registro](https://github.com/JonathanCoronel/uploadimg/blob/main/Imagenes%20Arquitectura/Diagrama%20de%20Caso1.drawio.png?raw=true)
+
+<img width="861" height="591" alt="image" src="https://github.com/user-attachments/assets/db28aadb-bd4e-4970-a7ae-14ff7b1ed72f" />
+
+
+
 
 
