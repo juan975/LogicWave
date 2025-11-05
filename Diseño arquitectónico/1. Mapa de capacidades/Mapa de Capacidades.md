@@ -2,7 +2,14 @@
   <img src="https://i.postimg.cc/13qQdqZs/utpllogo.png" alt="Logo UTPL" width="150"/>
 </p>
 
-# **Mapa de Capacidades de la Aplicación Bolsa de Empleos  - Cámara de Industrias Loja**
+
+
+<h1 align='center'>
+  Mapa de Capacidades de la Aplicación Bolsa de Empleos  -"CAIL"
+  <br>
+  "Aplicación mantenimiento de flotas"
+</h1>
+
 
 ---
 
@@ -143,5 +150,6 @@ Flujo de decisión final del empleador sobre un candidato.
 - **Decisión:** Capacidades para seleccionar candidatos y rechazar a otros.
 
 ---
+
 
 
