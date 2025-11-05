@@ -5,7 +5,7 @@
 <h1 align='center'>
   Diagrama de Clases
   <br>
-  "Aplicación de Gestión de Postulaciones"
+  "Aplicación Bolsa de Empleos "CAIL""
 </h1>
 
 ## ¿Qué es un Diagrama de Clases?
@@ -44,3 +44,4 @@ Un diagrama de clases sigue la siguiente estructura:
 ## Diagrama de Clases del Proyecto (CAIL)
 
 ![Diagrama de Clases CAIL](URL_DE_TU_IMAGEN_DIAGRAMA_CLASES_CAIL.png)
+
