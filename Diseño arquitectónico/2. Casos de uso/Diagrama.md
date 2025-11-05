@@ -3,9 +3,9 @@
 </p>
 
 <h1 align='center'>
-  Diagrama de Casos de Uso - Aplicación de Gestión de Postulaciones
+  Diagrama de Casos de Uso 
   <br>
-  "CAIL"
+  Aplicación Bolsa de Empleos "CAIL"
 </h1>
 
 ---
@@ -25,7 +25,7 @@ El objetivo principal de este diagrama es capturar y comunicar los **requisitos 
 * **Definir el Alcance:** Establece claramente qué debe hacer el sistema y qué queda fuera de sus límites.
 * **Facilitar la Comunicación:** Actúa como un lenguaje común entre los *stakeholders* (como los directivos de la Cámara de Industrias) y el equipo de desarrollo.
 * **Identificar Actores:** Clarifica quién (o qué) interactuará con el sistema.
-* **Guiar el Desarrollo y las Pruebas:** Cada caso de uso sirve como base para planificar la arquitectura, el desarrollo y, fundamentalmente, los casos de prueba (test cases).
+* **Guiar el Desarrollo y las Pruebas:** Cada caso de uso sirve como base para planificar la arquitectura, el desarrollo y, fundamentalmente, los casos de prueba.
 
 ---
 
@@ -35,13 +35,13 @@ Un diagrama de casos de uso se compone de pocos elementos, lo que facilita su co
 
 1.  **Actor:**
     * Representa cualquier entidad externa que interactúa con el sistema (un usuario humano, otro software, un dispositivo).
-    * Se dibuja como una figura humana (stick figure).
+    * Se dibuja como una figura humana.
 
-2.  **Caso de Uso (Use Case):**
+2.  **Caso de Uso:**
     * Representa una funcionalidad específica que el sistema proporciona para entregar un resultado de valor al actor (ej. "Publicar Oferta Laboral", "Validar Candidato").
     * Se dibuja como un **óvalo**.
 
-3.  **Sistema (System Boundary):**
+3.  **Sistema:**
     * Un **rectángulo** que delimita el alcance del sistema. Los casos de uso se dibujan *dentro* de este límite y los actores *fuera*.
 
 4.  **Relaciones:**
@@ -68,5 +68,6 @@ Basado en el Mapa de Capacidades, se identifican los siguientes actores y casos 
 Este diagrama cubre la administración de los actores clave del sistema: los empleadores y los candidatos.
 
 *[Aquí puedes insertar tu imagen del Diagrama de Casos de Uso para Gestión de Perfiles]*
+
 
 
