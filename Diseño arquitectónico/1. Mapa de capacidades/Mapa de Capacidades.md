@@ -30,7 +30,7 @@ Este mapa de capacidades detalla el flujo completo de una plataforma de bolsa de
 
 ---
 
-## **Mapa de Capacidades de la Aplicación Bolsa de Empleos Conjunta - Cámara de Industrias Loja **
+## **Mapa de Capacidades de la Aplicación Bolsa de Empleos Conjunta - "CAIL" **
 
 ![Mapa de Capacidades](https://github.com/user-attachments/assets/162efbbe-a985-4a0c-9532-a4e8ad182aff)
 
@@ -150,6 +150,7 @@ Flujo de decisión final del empleador sobre un candidato.
 - **Decisión:** Capacidades para seleccionar candidatos y rechazar a otros.
 
 ---
+
 
 
 
