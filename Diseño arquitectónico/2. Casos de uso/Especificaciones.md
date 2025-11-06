@@ -71,6 +71,23 @@ Este diagrama cubre la administración de los actores clave del sistema: los emp
 ![Caso de uso Perfiles](https://github.com/user-attachments/assets/db28aadb-bd4e-4970-a7ae-14ff7b1ed72f)
 
 
+### **Módulo: Gestión de perfiles (Administración de empleadores)**
+
+**Especificación (Ingresar datos de empresa)**
+
+| Nombre | Ingresar datos de empresa |
+| :--- | :--- |
+| **Actores** | - Empleador/Empresa |
+| **Flujo normal** | - El Empleador/Empresa inicia el proceso de registro en el sistema.<br>- El Empleador/Empresa completa el formulario con los datos de la compañía (RUC, razón social, dirección, contacto, etc.).<br>- El Empleador/Empresa guarda y envía el formulario.<br>- El sistema registra los datos de la empresa y la marca como "Pendiente de Validación". |
+
+**Especificación (Validar empresas)**
+
+| Nombre | Validar empresas |
+| :--- | :--- |
+| **Actores** | - Administrador del sistema |
+| **Flujo normal** | - El Administrador del sistema accede al panel de empresas pendientes de validación.<br>- El Administrador revisa la información y la documentación de la empresa registrada.<br>- El Administrador aprueba o rechaza el registro.<br>- El sistema actualiza el estado de la empresa (a "Validada" o "Rechazada") y notifica al Empleador/Empresa. |
+
+
 
 
 ## **2. Diagrama de Caso de Uso: Administracion de candidatos**
@@ -78,16 +95,77 @@ Este diagrama cubre la administración de los actores clave del sistema: los emp
 ![Caso de uso Candidatos](https://github.com/user-attachments/assets/1480a3ad-94cd-4341-a51e-706e322f6ce6)
 
 
+**Especificación (Ingresar datos del postulante)**
+
+| Nombre | Ingresar datos del postulante |
+| :--- | :--- |
+| **Actores** | - Candidato |
+| **Flujo normal** | - El Candidato inicia el proceso de registro de su perfil.<br>- El sistema solicita la información en secciones.<br>- **`<<include>>`** El Candidato completa el formulario de "Ingresar información personal" (nombres, cédula, contacto).<br>- **`<<include>>`** El Candidato completa el formulario de "Ingresar información profesional" (experiencia, estudios, habilidades, competencias).<br>- El Candidato guarda la información de su perfil.<br>- El sistema almacena el perfil y lo marca como "Pendiente de Validación". |
+
+**Especificación (Validar candidatos)**
+
+| Nombre | Validar candidatos |
+| :--- | :--- |
+| **Actores** | - Administrador del sistema |
+| **Flujo normal** | - El Administrador del sistema accede al listado de candidatos pendientes de validación.<br>- El Administrador revisa la información clave del perfil (ej. cédula, certificados).<br>- El Administrador aprueba o rechaza el perfil del candidato.<br>- El sistema actualiza el estado del perfil (a "Validado" o "Rechazado") y notifica al Candidato. |
+
+
+
+
+
+
 ## **3. Diagrama de Caso de Uso: Definicioon de vacantes**
 
 
 ![Caso de uso Vacantes](https://github.com/user-attachments/assets/4832b462-8585-4561-ab92-de4fdfb8332d)
+
+### **Módulo: Gestión de Ofertas Laborales (Definición de Vacantes)**
+
+**Especificación (Registrar oferta laboral)**
+
+| Nombre | Registrar oferta laboral |
+| :--- | :--- |
+| **Actores** | - Empleador/Empresa |
+| **Flujo normal** | - El Empleador/Empresa selecciona la opción de crear una nueva oferta laboral.<br>- **`<<include>>`** El Empleador/Empresa completa el formulario de "Ingresar datos de oferta laboral" (título, descripción, salario, modalidad, ubicación, etc.).<br>- El Empleador/Empresa guarda la oferta como borrador. |
+
+**Especificación (Registrar perfiles requeridos)**
+
+| Nombre | Registrar perfiles requeridos |
+| :--- | :--- |
+| **Actores** | - Empleador/Empresa |
+| **Flujo normal** | - El Empleador/Empresa, durante la creación o edición de una oferta, accede a la sección de requisitos.<br>- El Empleador/Empresa especifica las competencias, nivel de experiencia y formación necesarios para la vacante.<br>- El sistema guarda estos requisitos asociados a la oferta laboral. |
+
+**Especificación (Publicar oferta laboral)**
+
+| Nombre | Publicar oferta laboral |
+| :--- | :--- |
+| **Actores** | - Empleador/Empresa |
+| **Flujo normal** | - El Empleador/Empresa accede a su lista de ofertas en borrador.<br>- El Empleador/Empresa selecciona una oferta para hacerla pública.<br>- El sistema valida que la oferta tenga los datos mínimos (datos de oferta y perfiles requeridos).<br>- El sistema cambia el estado de la oferta a "Publicada" y la hace visible en el catálogo. |
+
 
 
 ## **4. Diagrama de Caso de Uso: Ciclo de vida Oferta**
 
 
 ![Caso de uso Ciclo Oferta](https://github.com/user-attachments/assets/fe87a559-4855-46af-87f9-2552a3cc9657)
+
+
+### **Módulo: Gestión de Ofertas Laborales (Gestión del ciclo de vida de la oferta)**
+
+**Especificación (Administrar oferta)**
+
+| Nombre | Administrar oferta |
+| :--- | :--- |
+| **Actores** | - Empleador/Empresa |
+| **Flujo normal** | - El Empleador/Empresa accede a su panel de "Ofertas publicadas".<br>- El Empleador/Empresa selecciona una oferta activa para gestionarla.<br>- **`<<include>>`** El Empleador "Verifica la oferta" (revisa su estado, vistas, número de postulantes).<br>- **`<<include>>`** El Empleador "Actualiza la oferta" (modifica la descripción, salario, o cualquier dato si es necesario).<br>- El sistema guarda los cambios realizados. |
+
+**Especificación (Administrar ofertas finalizadas)**
+
+| Nombre | Administrar ofertas finalizadas |
+| :--- | :--- |
+| **Actores** | - Empleador/Empresa |
+| **Flujo normal** | - El Empleador/Empresa determina que una oferta ya no está vigente (ej. vacante cubierta o expirada).<br>- El Empleador/Empresa selecciona la oferta desde su panel.<br>- **`<<include>>`** El Empleador "Archiva la oferta" (la mueve a un historial de registros).<br>- **`<<include>>`** El Empleador "Retira la oferta" (la quita de la vista pública de candidatos).<Lbr>- El sistema actualiza el estado de la oferta a "Finalizada" o "Archivada". |
+
 
 
 
