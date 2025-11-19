@@ -34,8 +34,14 @@ export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <LinearGradient colors={['#FFF3E2', '#FFE8D7']} style={styles.backdrop} pointerEvents="none" />
       <View style={styles.container}>
         <LinearGradient colors={gradients.employer} style={styles.hero}>
+          <LinearGradient
+            colors={['rgba(255,255,255,0.18)', 'transparent']}
+            style={styles.heroOverlay}
+            pointerEvents="none"
+          />
           <View style={styles.headerRow}>
             <View style={styles.headerLeft}>
               <Image source={logo} style={styles.logo} />
@@ -51,12 +57,24 @@ export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
           </View>
           <View style={styles.heroStats}>
             <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Ofertas activas</Text>
+              <View style={styles.statHeader}>
+                <View style={styles.statIcon}>
+                  <Feather name="briefcase" size={16} color="#fff" />
+                </View>
+                <Text style={styles.statLabel}>Ofertas activas</Text>
+              </View>
               <Text style={styles.statValue}>3</Text>
+              <Text style={styles.statHint}>Última publicación hace 2 días.</Text>
             </View>
             <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Postulaciones hoy</Text>
+              <View style={styles.statHeader}>
+                <View style={styles.statIcon}>
+                  <Feather name="users" size={16} color="#fff" />
+                </View>
+                <Text style={styles.statLabel}>Postulaciones hoy</Text>
+              </View>
               <Text style={styles.statValue}>12</Text>
+              <Text style={styles.statHint}>+3 respecto a la media.</Text>
             </View>
           </View>
         </LinearGradient>
@@ -99,8 +117,10 @@ function EmployerNavItem({
 }) {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.navItem, active && styles.navItemActive]}>
-      <Feather name={icon} size={20} color={active ? colors.employer : colors.muted} />
-      <Text style={[styles.navLabel, active && { color: colors.employer }]}>{label}</Text>
+      <View style={[styles.navIcon, active && styles.navIconActive]}>
+        <Feather name={icon} size={18} color={active ? colors.employerDark : colors.muted} />
+      </View>
+      <Text style={[styles.navLabel, active && styles.navLabelActive]}>{label}</Text>
     </TouchableOpacity>
   );
 }
@@ -109,6 +129,9 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
   },
   container: {
     flex: 1,
@@ -119,6 +142,10 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
+    overflow: 'hidden',
+  },
+  heroOverlay: {
+    ...StyleSheet.absoluteFillObject,
   },
   headerRow: {
     flexDirection: 'row',
@@ -164,14 +191,18 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.4)',
   },
   statLabel: {
     color: 'rgba(255,255,255,0.8)',
     fontSize: 12,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   statValue: {
     color: '#fff',
@@ -179,34 +210,72 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: 6,
   },
+  statHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  statIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.25)',
+  },
+  statHint: {
+    color: 'rgba(255,255,255,0.75)',
+    marginTop: 4,
+    fontSize: 12,
+  },
   content: {
     flex: 1,
-    backgroundColor: colors.background,
     paddingTop: 12,
   },
   navbar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    marginHorizontal: 16,
-    marginBottom: 14,
-    borderRadius: 22,
+    justifyContent: 'space-between',
+    gap: 6,
+    padding: 10,
+    marginHorizontal: 20,
+    marginBottom: 18,
+    borderRadius: 26,
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
   },
   navItem: {
+    flex: 1,
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    gap: 6,
+    paddingVertical: 6,
+    borderRadius: 20,
   },
   navItemActive: {
-    borderRadius: 18,
     backgroundColor: colors.employerSurface,
   },
   navLabel: {
     fontSize: 12,
     color: colors.muted,
+    fontWeight: '600',
+  },
+  navLabelActive: {
+    color: colors.employerDark,
+  },
+  navIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surfaceMuted,
+  },
+  navIconActive: {
+    backgroundColor: colors.employerSurface,
   },
 });

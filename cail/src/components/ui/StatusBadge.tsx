@@ -3,7 +3,7 @@ import { colors } from '@/theme/colors';
 
 const toneColors: Record<string, string> = {
   success: colors.success,
-  warning: colors.employer,
+  warning: colors.warning,
   info: colors.info,
   danger: colors.danger,
   neutral: colors.muted,
@@ -17,7 +17,15 @@ interface StatusBadgeProps {
 export function StatusBadge({ label, tone = 'info' }: StatusBadgeProps) {
   const toneColor = toneColors[tone] ?? colors.info;
   return (
-    <View style={[styles.badge, { backgroundColor: toneColor + '20' }]}> 
+    <View
+      style={[
+        styles.badge,
+        {
+          backgroundColor: toneColor + '15',
+          borderColor: toneColor + '33',
+        },
+      ]}
+    >
       <Text style={[styles.text, { color: toneColor }]}>{label}</Text>
     </View>
   );
@@ -25,13 +33,15 @@ export function StatusBadge({ label, tone = 'info' }: StatusBadgeProps) {
 
 const styles = StyleSheet.create({
   badge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 999,
     alignSelf: 'flex-start',
+    borderWidth: 1,
   },
   text: {
-    fontWeight: '600',
+    fontWeight: '700',
     fontSize: 12,
+    textTransform: 'capitalize',
   },
 });

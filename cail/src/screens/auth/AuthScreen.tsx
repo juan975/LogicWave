@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { Button } from '@/components/ui/Button';
+import { Card } from '@/components/ui/Card';
+import { colors, gradients } from '@/theme/colors';
 import { UserRole } from '@/types';
 import { LoginForm } from './LoginForm';
 import { RegisterCandidateForm } from './RegisterCandidateForm';
@@ -30,33 +32,37 @@ export function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
   };
 
   return (
-    <LinearGradient colors={['#003366', '#007a3d', '#00994C']} style={styles.gradient}>
+    <LinearGradient colors={['#0F8154', '#0F8154', '#1A5F7A']} style={styles.gradient}>
       <SafeAreaView style={styles.safe}>
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
           <View style={styles.logoWrapper}>
-            <Image source={logo} style={styles.logo} resizeMode="contain" />
+            <View style={styles.logoBadge}>
+              <Image source={logo} style={styles.logo} resizeMode="contain" />
+            </View>
             <Text style={styles.headline}>Bolsa de Empleo CAIL</Text>
             <Text style={styles.subtitle}>Cámara de Industrias de Loja</Text>
+            <Text style={styles.tagline}>Gestión de Perfiles - Acceso al sistema</Text>
           </View>
 
           {mode === 'select' ? (
             <View style={styles.options}>
               <RoleButton
                 title="Soy Candidato"
-                description="Busco oportunidades alineadas a mi perfil"
+                description="Busco empleo"
                 icon="user"
                 onPress={() => handleRoleSelect('candidate')}
               />
               <RoleButton
                 title="Soy Empleador"
-                description="Gestiono vacantes y talentos"
+                description="Busco personal"
                 icon="briefcase"
                 accent="employer"
                 onPress={() => handleRoleSelect('employer')}
               />
+              <Text style={styles.footerText}>Conectando talento con oportunidades en Loja</Text>
             </View>
           ) : (
-            <View style={styles.formWrapper}>
+            <Card tone="accent" spacing="lg" style={styles.formCard}>
               {mode === 'login' && (
                 <LoginForm
                   role={selectedRole}
@@ -79,7 +85,7 @@ export function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
                   onSwitchToLogin={() => setMode('login')}
                 />
               )}
-            </View>
+            </Card>
           )}
         </ScrollView>
       </SafeAreaView>
@@ -100,24 +106,21 @@ function RoleButton({
   onPress: () => void;
   accent?: 'candidate' | 'employer';
 }) {
-  const accentColor = accent === 'candidate' ? '#00994C' : '#F39200';
+  const iconBgColor = accent === 'candidate' ? '#0F8154' : '#F59E0B';
+  
   return (
-    <View style={styles.roleCard}>
-      <View style={styles.roleIcon}>
-        <Feather name={icon} size={26} color="#fff" />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.roleCard}>
+        <View style={[styles.roleIcon, { backgroundColor: iconBgColor }]}>
+          <Feather name={icon} size={24} color="#fff" />
+        </View>
+        <View style={styles.roleContent}>
+          <Text style={styles.roleTitle}>{title}</Text>
+          <Text style={styles.roleDescription}>{description}</Text>
+        </View>
+        <Feather name="arrow-right" size={24} color="#0F8154" />
       </View>
-      <View style={styles.roleContent}>
-        <Text style={styles.roleTitle}>{title}</Text>
-        <Text style={styles.roleDescription}>{description}</Text>
-      </View>
-      <Button
-        label="Continuar"
-        onPress={onPress}
-        variant="ghost"
-        style={[styles.roleButton, { borderColor: accentColor }]}
-        tone={accent === 'candidate' ? 'candidate' : 'employer'}
-      />
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -135,60 +138,78 @@ const styles = StyleSheet.create({
   },
   logoWrapper: {
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 40,
+  },
+  logoBadge: {
+    padding: 12,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    marginBottom: 16,
   },
   logo: {
-    width: 80,
-    height: 80,
-    marginBottom: 12,
+    width: 72,
+    height: 72,
   },
   headline: {
     fontSize: 28,
     fontWeight: '700',
     color: '#fff',
+    marginBottom: 4,
   },
   subtitle: {
-    color: 'rgba(255,255,255,0.8)',
+    color: 'rgba(255,255,255,0.9)',
     marginTop: 4,
+    fontWeight: '500',
+    fontSize: 16,
+  },
+  tagline: {
+    color: 'rgba(255,255,255,0.75)',
+    marginTop: 8,
+    textAlign: 'center',
+    lineHeight: 20,
+    fontSize: 14,
   },
   options: {
     gap: 16,
   },
   roleCard: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 24,
-    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
   },
   roleIcon: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 18,
     padding: 14,
+    borderRadius: 12,
   },
   roleContent: {
     flex: 1,
+    gap: 4,
   },
   roleTitle: {
-    color: '#fff',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
+    color: '#1F2937',
   },
   roleDescription: {
-    color: 'rgba(255,255,255,0.8)',
-    marginTop: 4,
+    color: '#6B7280',
+    lineHeight: 18,
+    fontSize: 14,
   },
-  roleButton: {
-    borderRadius: 16,
+  footerText: {
+    color: 'rgba(255,255,255,0.7)',
+    textAlign: 'center',
+    marginTop: 24,
+    fontSize: 14,
   },
-  formWrapper: {
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    borderRadius: 24,
-    padding: 20,
-    borderColor: 'rgba(255,255,255,0.2)',
-    borderWidth: 1,
+  formCard: {
+    marginTop: 12,
   },
 });

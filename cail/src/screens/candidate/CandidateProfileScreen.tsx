@@ -15,6 +15,7 @@ export function CandidateProfileScreen() {
   const [newSkill, setNewSkill] = useState('');
   const [newSoftSkill, setNewSoftSkill] = useState('');
   const [newCompetency, setNewCompetency] = useState('');
+  const [activeTab, setActiveTab] = useState<'personal' | 'professional' | 'experience'>('personal');
 
   const completion = useMemo(() => {
     const fields = [
@@ -53,78 +54,118 @@ export function CandidateProfileScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Card>
-        <SectionHeader title="Mi perfil profesional" subtitle="Completa tu información para mejorar tus coincidencias" />
-        <ProgressBar progress={completion} label={`Avance ${Math.round(completion * 100)}%`} />
-        <InputField label="Nombre completo" value={form.fullName} onChangeText={(text) => updateField('fullName', text)} />
-        <InputField label="Correo" value={form.email} onChangeText={(text) => updateField('email', text)} autoCapitalize="none" />
-        <InputField label="Teléfono" value={form.phone} onChangeText={(text) => updateField('phone', text)} keyboardType="phone-pad" />
-        <InputField label="Ciudad" value={form.city} onChangeText={(text) => updateField('city', text)} />
-        <InputField label="Dirección" value={form.address} onChangeText={(text) => updateField('address', text)} />
-        <InputField
-          label="Resumen profesional"
-          value={form.professionalSummary}
-          onChangeText={(text) => updateField('professionalSummary', text)}
-          multiline
-        />
+      <Card tone="accent" spacing="lg">
+        <SectionHeader title="Mi perfil profesional" subtitle="Administra tus datos personales, profesionales y experiencia" />
+        <View style={styles.tabs}>
+          <ProfileTab label="Personal" active={activeTab === 'personal'} onPress={() => setActiveTab('personal')} />
+          <ProfileTab label="Profesional" active={activeTab === 'professional'} onPress={() => setActiveTab('professional')} />
+          <ProfileTab label="Experiencia" active={activeTab === 'experience'} onPress={() => setActiveTab('experience')} />
+        </View>
       </Card>
 
-      <Card style={styles.cardSpacing}>
-        <SectionHeader title="Habilidades técnicas" subtitle="Agrega tecnologías o certificaciones clave" />
-        <View style={styles.tagList}>
-          {form.technicalSkills.map((skill, index) => (
-            <Chip key={skill + index} label={skill} onPress={() => removeItem('technicalSkills', index)} active />
-          ))}
-        </View>
-        <InputField label="Agregar habilidad" value={newSkill} onChangeText={setNewSkill} placeholder="Ej. React Native" />
-        <Button
-          label="Añadir"
-          variant="ghost"
-          onPress={() => {
-            addItem('technicalSkills', newSkill);
-            setNewSkill('');
-          }}
-        />
-      </Card>
+      {activeTab === 'personal' && (
+        <Card style={styles.sectionCard}>
+          <SectionHeader title="Información personal" subtitle="Esta información es visible para los empleadores" />
+          <InputField label="Nombre completo" value={form.fullName} onChangeText={(text) => updateField('fullName', text)} />
+          <InputField label="Correo" value={form.email} onChangeText={(text) => updateField('email', text)} autoCapitalize="none" />
+          <InputField label="Teléfono" value={form.phone} onChangeText={(text) => updateField('phone', text)} keyboardType="phone-pad" />
+          <InputField label="Ciudad" value={form.city} onChangeText={(text) => updateField('city', text)} />
+          <InputField label="Dirección" value={form.address} onChangeText={(text) => updateField('address', text)} />
+        </Card>
+      )}
 
-      <Card style={styles.cardSpacing}>
-        <SectionHeader title="Habilidades blandas" subtitle="Describe fortalezas personales" />
-        <View style={styles.tagList}>
-          {form.softSkills.map((skill, index) => (
-            <Chip key={skill + index} label={skill} onPress={() => removeItem('softSkills', index)} active color={colors.info} />
-          ))}
-        </View>
-        <InputField label="Agregar habilidad blanda" value={newSoftSkill} onChangeText={setNewSoftSkill} placeholder="Ej. Liderazgo" />
-        <Button
-          label="Añadir"
-          variant="ghost"
-          onPress={() => {
-            addItem('softSkills', newSoftSkill);
-            setNewSoftSkill('');
-          }}
-        />
-      </Card>
+      {activeTab === 'professional' && (
+        <>
+          <Card style={styles.sectionCard}>
+            <SectionHeader title="Resumen profesional" subtitle="Describe tu perfil y rol objetivo" />
+            <InputField
+              label="Resumen"
+              value={form.professionalSummary}
+              onChangeText={(text) => updateField('professionalSummary', text)}
+              multiline
+            />
+          </Card>
+          <Card style={styles.sectionCard}>
+            <SectionHeader title="Habilidades técnicas" subtitle="Agrega tecnologías o certificaciones clave" />
+            <View style={styles.tagList}>
+              {form.technicalSkills.map((skill, index) => (
+                <Chip key={skill + index} label={skill} onPress={() => removeItem('technicalSkills', index)} active />
+              ))}
+            </View>
+            <InputField label="Agregar habilidad" value={newSkill} onChangeText={setNewSkill} placeholder="Ej. React Native" />
+            <Button
+              label="Añadir habilidad"
+              variant="ghost"
+              onPress={() => {
+                addItem('technicalSkills', newSkill);
+                setNewSkill('');
+              }}
+            />
+          </Card>
+          <Card style={styles.sectionCard}>
+            <SectionHeader title="Habilidades blandas" subtitle="Fortalezas personales y sociales" />
+            <View style={styles.tagList}>
+              {form.softSkills.map((skill, index) => (
+                <Chip key={skill + index} label={skill} onPress={() => removeItem('softSkills', index)} active color={colors.info} />
+              ))}
+            </View>
+            <InputField label="Agregar habilidad blanda" value={newSoftSkill} onChangeText={setNewSoftSkill} placeholder="Ej. Liderazgo" />
+            <Button
+              label="Añadir habilidad blanda"
+              variant="ghost"
+              onPress={() => {
+                addItem('softSkills', newSoftSkill);
+                setNewSoftSkill('');
+              }}
+            />
+          </Card>
+        </>
+      )}
 
-      <Card style={styles.cardSpacing}>
-        <SectionHeader title="Competencias" subtitle="Selecciona tus competencias clave" />
-        <View style={styles.tagList}>
-          {form.competencies.map((skill, index) => (
-            <Chip key={skill + index} label={skill} onPress={() => removeItem('competencies', index)} active color={colors.employer} />
-          ))}
-        </View>
-        <InputField label="Agregar competencia" value={newCompetency} onChangeText={setNewCompetency} placeholder="Ej. Gestión de proyectos" />
-        <Button
-          label="Añadir"
-          variant="ghost"
-          onPress={() => {
-            addItem('competencies', newCompetency);
-            setNewCompetency('');
-          }}
-        />
-      </Card>
+      {activeTab === 'experience' && (
+        <>
+          <Card style={styles.sectionCard}>
+            <SectionHeader title="Competencias" subtitle="Selecciona tus competencias clave" />
+            <View style={styles.tagList}>
+              {form.competencies.map((skill, index) => (
+                <Chip key={skill + index} label={skill} onPress={() => removeItem('competencies', index)} active color={colors.employer} />
+              ))}
+            </View>
+            <InputField label="Agregar competencia" value={newCompetency} onChangeText={setNewCompetency} placeholder="Ej. Gestión de proyectos" />
+            <Button
+              label="Añadir competencia"
+              variant="ghost"
+              onPress={() => {
+                addItem('competencies', newCompetency);
+                setNewCompetency('');
+              }}
+            />
+          </Card>
+          <Card style={styles.sectionCard}>
+            <SectionHeader title="Experiencia laboral" subtitle="Registra tus últimos cargos o prácticas" />
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyTitle}>Aún no registras experiencia</Text>
+              <Text style={styles.emptySubtitle}>Agrega tus experiencias para mejorar tus coincidencias.</Text>
+            </View>
+            <Button label="Agregar experiencia" variant="ghost" tone="candidate" />
+          </Card>
+        </>
+      )}
 
       <Button label="Guardar cambios" onPress={handleSave} fullWidth style={styles.saveBtn} />
     </ScrollView>
+  );
+}
+
+function ProfileTab({ label, active, onPress }: { label: string; active: boolean; onPress: () => void }) {
+  return (
+    <Button
+      label={label}
+      onPress={onPress}
+      variant="ghost"
+      tone={active ? 'candidate' : 'neutral'}
+      style={[styles.tabButton, active && styles.tabButtonActive]}
+    />
   );
 }
 
@@ -133,7 +174,17 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 16,
   },
-  cardSpacing: {
+  tabs: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  tabButton: {
+    flex: 1,
+  },
+  tabButtonActive: {
+    backgroundColor: colors.candidateSurface,
+  },
+  sectionCard: {
     marginTop: 12,
   },
   tagList: {
@@ -144,5 +195,19 @@ const styles = StyleSheet.create({
   },
   saveBtn: {
     marginVertical: 24,
+  },
+  emptyState: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 12,
+  },
+  emptyTitle: {
+    fontWeight: '600',
+    color: colors.textPrimary,
+  },
+  emptySubtitle: {
+    color: colors.textSecondary,
+    marginTop: 4,
   },
 });

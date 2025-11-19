@@ -11,21 +11,30 @@ interface ChipProps {
 }
 
 export function Chip({ label, icon, onPress, active, color }: ChipProps) {
+  const accentColor = color ?? colors.accent;
   const content = (
     <View
       style={[
         styles.container,
-        active && { backgroundColor: color ?? colors.candidate + '26', borderColor: color ?? colors.candidate },
+        active && {
+          backgroundColor: accentColor + '18',
+          borderColor: accentColor,
+          shadowColor: accentColor,
+          shadowOpacity: 0.12,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 4 },
+          elevation: 3,
+        },
       ]}
     >
       {icon}
-      <Text style={[styles.label, active && { color: color ?? colors.candidate }]}>{label}</Text>
+      <Text style={[styles.label, active && { color: accentColor }]}>{label}</Text>
     </View>
   );
 
   if (onPress) {
     return (
-      <Pressable onPress={onPress} style={({ pressed }) => pressed && { opacity: 0.7 }}>
+      <Pressable onPress={onPress} style={({ pressed }) => (pressed ? styles.pressed : undefined)}>
         {content}
       </Pressable>
     );
@@ -40,15 +49,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 24,
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    borderRadius: 28,
     gap: 6,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
   },
   label: {
     color: colors.textSecondary,
     fontSize: 13,
-    fontWeight: '500',
+    fontWeight: '600',
+  },
+  pressed: {
+    opacity: 0.8,
   },
 });

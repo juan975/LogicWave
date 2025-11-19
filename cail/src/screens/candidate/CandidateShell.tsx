@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import { colors, gradients } from '@/theme/colors';
+import { colors } from '@/theme/colors';
 import { CandidateProfileScreen } from './CandidateProfileScreen';
 import { JobDiscoveryScreen } from './JobDiscoveryScreen';
 import { MyApplicationsScreen } from './MyApplicationsScreen';
@@ -38,30 +37,21 @@ export function CandidateShell({ userData, onLogout }: CandidateShellProps) {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.container}>
-        <LinearGradient colors={gradients.candidate} style={styles.hero}>
-          <View style={styles.headerRow}>
-            <View style={styles.headerLeft}>
+        <View style={styles.headerCard}>
+          <View style={styles.headerLeft}>
+            <View style={styles.logoBadge}>
               <Image source={logo} style={styles.logo} />
-              <View>
-                <Text style={styles.headerEyebrow}>Candidato</Text>
-                <Text style={styles.headerTitle}>Hola, {userData.name}</Text>
-              </View>
             </View>
-            <TouchableOpacity onPress={onLogout} style={styles.logoutBtn}>
-              <Feather name="log-out" color="#fff" size={18} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.heroStats}>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Avance del perfil</Text>
-              <Text style={styles.statValue}>{Math.round((userData.progress ?? 0.78) * 100)}%</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Alertas activas</Text>
-              <Text style={styles.statValue}>4</Text>
+            <View>
+              <Text style={styles.headerEyebrow}>Candidato</Text>
+              <Text style={styles.headerTitle}>Bolsa de Empleo CAIL</Text>
+              <Text style={styles.headerSubtitle}>Hola, {userData.name}</Text>
             </View>
           </View>
-        </LinearGradient>
+          <TouchableOpacity onPress={onLogout} style={styles.logoutBtn}>
+            <Feather name="log-out" color={colors.candidateDark} size={18} />
+          </TouchableOpacity>
+        </View>
         <View style={styles.content}>{renderScreen()}</View>
         <View style={styles.navbar}>
           <NavItem icon="search" label="Descubrir" active={tab === 'discovery'} onPress={() => setTab('discovery')} />
@@ -97,8 +87,10 @@ function NavItem({
 }) {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.navItem, active && styles.navItemActive]}>
-      <Feather name={icon} size={20} color={active ? colors.candidate : colors.muted} />
-      <Text style={[styles.navLabel, active && { color: colors.candidate }]}>{label}</Text>
+      <View style={[styles.navIcon, active && styles.navIconActive]}>
+        <Feather name={icon} size={18} color={active ? colors.candidateDark : colors.muted} />
+      </View>
+      <Text style={[styles.navLabel, active && styles.navLabelActive]}>{label}</Text>
     </TouchableOpacity>
   );
 }
@@ -110,98 +102,110 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 12,
   },
-  hero: {
-    paddingHorizontal: 20,
-    paddingTop: 22,
-    paddingBottom: 18,
-    borderBottomLeftRadius: 32,
-    borderBottomRightRadius: 32,
-  },
-  headerRow: {
+  headerCard: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    backgroundColor: colors.surface,
+    borderRadius: 28,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: colors.border,
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 14,
   },
-  logo: {
+  logoBadge: {
     width: 48,
     height: 48,
-    borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    padding: 6,
+    borderRadius: 16,
+    backgroundColor: colors.candidateSurface,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: 36,
+    height: 36,
   },
   headerEyebrow: {
-    color: 'rgba(255,255,255,0.75)',
+    color: colors.muted,
     fontSize: 12,
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
   headerTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff',
+    fontSize: 20,
+    fontWeight: '700',
+    color: colors.textPrimary,
+  },
+  headerSubtitle: {
+    color: colors.textSecondary,
+    marginTop: 2,
   },
   logoutBtn: {
     padding: 10,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.4)',
+    borderColor: colors.border,
+    backgroundColor: colors.surfaceMuted,
   },
   content: {
     flex: 1,
-    backgroundColor: colors.background,
-    paddingTop: 12,
+    paddingTop: 16,
   },
   navbar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    marginHorizontal: 16,
-    marginBottom: 14,
-    borderRadius: 22,
+    justifyContent: 'space-between',
+    gap: 8,
+    padding: 10,
+    marginTop: 8,
+    marginBottom: 18,
+    borderRadius: 28,
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
   },
   navItem: {
+    flex: 1,
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    gap: 6,
+    paddingVertical: 6,
+    borderRadius: 22,
   },
   navItemActive: {
-    borderRadius: 18,
     backgroundColor: colors.candidateSurface,
   },
   navLabel: {
     fontSize: 12,
     color: colors.muted,
+    fontWeight: '600',
   },
-  heroStats: {
-    flexDirection: 'row',
-    gap: 12,
-    marginTop: 18,
+  navLabelActive: {
+    color: colors.candidateDark,
   },
-  statCard: {
-    flex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.15)',
+  navIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surfaceMuted,
   },
-  statLabel: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: 12,
-  },
-  statValue: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '700',
-    marginTop: 6,
+  navIconActive: {
+    backgroundColor: colors.candidateSurface,
   },
 });

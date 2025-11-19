@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from '@/theme/colors';
 
 interface ProgressBarProps {
@@ -7,11 +8,18 @@ interface ProgressBarProps {
 }
 
 export function ProgressBar({ progress, label }: ProgressBarProps) {
+  const width = `${Math.min(1, Math.max(0, progress)) * 100}%`;
+
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
       <View style={styles.track}>
-        <View style={[styles.fill, { width: `${Math.min(1, Math.max(0, progress)) * 100}%` }]} />
+        <LinearGradient
+          colors={[colors.accent, colors.candidate]}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={[styles.fill, { width }]}
+        />
       </View>
     </View>
   );
@@ -25,15 +33,16 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 6,
     color: colors.textSecondary,
+    fontWeight: '600',
   },
   track: {
-    height: 8,
+    height: 10,
     borderRadius: 999,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: colors.surfaceMuted,
+    overflow: 'hidden',
   },
   fill: {
     height: '100%',
     borderRadius: 999,
-    backgroundColor: colors.candidate,
   },
 });
