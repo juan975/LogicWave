@@ -38,8 +38,8 @@ export function LoginForm({ role, onSuccess, onBack, onSwitchToRegister }: Login
           company: 'Industrias ABC',
           contactName: 'Patricia Ludeña',
           email,
-          needsPasswordChange: true,
-          isEmailVerified: false,
+          needsPasswordChange: false,
+          isEmailVerified: true,
         });
       }
     }, 700);
