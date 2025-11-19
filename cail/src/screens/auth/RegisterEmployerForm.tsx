@@ -192,7 +192,7 @@ export function RegisterEmployerForm({ onSuccess, onBack, onSwitchToLogin }: Reg
       {/* Header con botón volver y logo */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <Feather name="chevron-left" size={20} color="#fff" />
+          <Feather name="chevron-left" size={20} color="#0F8154" />
           <Text style={styles.backText}>Volver</Text>
         </TouchableOpacity>
         <View style={styles.logoSmall}>
@@ -214,23 +214,31 @@ export function RegisterEmployerForm({ onSuccess, onBack, onSwitchToLogin }: Reg
         {/* Formulario */}
         <View style={styles.form}>
           {/* Nombre de empresa con dropdown */}
-          <View style={styles.inputGroup}>
+          <View style={[styles.inputGroup, showDropdown && styles.inputGroupRaised]}>
             <Text style={styles.label}>Nombre de empresa *</Text>
-            <TouchableOpacity onPress={() => setShowDropdown(!showDropdown)}>
-              <View style={styles.dropdownInput}>
-                <TextInput
-                  style={styles.input}
-                  value={empresaNombre}
-                  onChangeText={(text) => {
-                    setEmpresaNombre(text);
-                    setShowDropdown(true);
-                  }}
-                  placeholder="Selecciona o busca una empresa..."
-                  placeholderTextColor="#9CA3AF"
+            <View style={styles.dropdownInput}>
+              <TextInput
+                style={styles.input}
+                value={empresaNombre}
+                onFocus={() => setShowDropdown(true)}
+                onChangeText={(text) => {
+                  setEmpresaNombre(text);
+                  setShowDropdown(true);
+                }}
+                placeholder="Selecciona o busca una empresa..."
+                placeholderTextColor="#9CA3AF"
+              />
+              <TouchableOpacity
+                onPress={() => setShowDropdown((prev) => !prev)}
+                style={styles.dropdownIcon}
+              >
+                <Feather
+                  name={showDropdown ? "chevron-up" : "chevron-down"}
+                  size={20}
+                  color="#6B7280"
                 />
-                <Feather name="chevron-down" size={20} color="#6B7280" />
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
             <Text style={styles.hint}>Selecciona de la lista o escribe para buscar</Text>
 
             {/* Dropdown de opciones */}
@@ -365,7 +373,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   backText: {
-    color: '#fff',
+    color: '#0F8154',
     fontSize: 16,
     fontWeight: '500',
   },
@@ -385,6 +393,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 24,
     alignItems: 'center',
+    overflow: 'visible',
   },
   iconCircle: {
     width: 72,
@@ -413,6 +422,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     position: 'relative',
   },
+  inputGroupRaised: {
+    zIndex: 10,
+  },
   label: {
     fontSize: 14,
     fontWeight: '500',
@@ -424,7 +436,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F3F4F6',
     borderRadius: 8,
-    paddingRight: 12,
+    paddingRight: 4,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
   },
   input: {
     flex: 1,
@@ -439,6 +453,10 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#9CA3AF',
     marginTop: 4,
+  },
+  dropdownIcon: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
   dropdown: {
     position: 'absolute',

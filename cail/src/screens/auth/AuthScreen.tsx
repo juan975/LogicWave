@@ -213,5 +213,6 @@ const styles = StyleSheet.create({
   },
   formCard: {
     marginTop: 12,
+    overflow: 'visible',
   },
 });
