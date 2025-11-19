@@ -219,7 +219,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
-    backgroundColor: '#F3F4F6',
     borderWidth: 0,
   },
   forgotPassword: {

@@ -35,14 +35,16 @@ export function AuthScreen({ onAuthSuccess }: AuthScreenProps) {
     <LinearGradient colors={['#0F8154', '#0F8154', '#1A5F7A']} style={styles.gradient}>
       <SafeAreaView style={styles.safe}>
         <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-          <View style={styles.logoWrapper}>
-            <View style={styles.logoBadge}>
-              <Image source={logo} style={styles.logo} resizeMode="contain" />
+          {mode === 'select' && (
+            <View style={styles.logoWrapper}>
+              <View style={styles.logoBadge}>
+                <Image source={logo} style={styles.logo} resizeMode="contain" />
+              </View>
+              <Text style={styles.headline}>Bolsa de Empleo CAIL</Text>
+              <Text style={styles.subtitle}>Cámara de Industrias de Loja</Text>
+              <Text style={styles.tagline}>Gestión de Perfiles - Acceso al sistema</Text>
             </View>
-            <Text style={styles.headline}>Bolsa de Empleo CAIL</Text>
-            <Text style={styles.subtitle}>Cámara de Industrias de Loja</Text>
-            <Text style={styles.tagline}>Gestión de Perfiles - Acceso al sistema</Text>
-          </View>
+          )}
 
           {mode === 'select' ? (
             <View style={styles.options}>
