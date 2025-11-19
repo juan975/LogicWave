@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native'
 import { colors } from '@/theme/colors';
 
 interface InputFieldProps extends TextInputProps {
-  label: string;
+  label?: string;
   helperText?: string;
 }
 
@@ -13,7 +13,7 @@ export const InputField = forwardRef<TextInput, InputFieldProps>(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>{label}</Text>
+        {label && <Text style={styles.label}>{label}</Text>}
         <View style={[styles.inputWrapper, focused && styles.inputWrapperFocused]}>
           <TextInput
             ref={ref}

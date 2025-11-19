@@ -7,6 +7,7 @@
       "@/components/*": ["src/components/*"],
       "@/theme/*": ["src/theme/*"],
       "@/hooks/*": ["src/hooks/*"],
+      "@/types": ["src/types/index"],
       "@/types/*": ["src/types/*"],
       "@/screens/*": ["src/screens/*"],
       "@/data/*": ["src/data/*"],

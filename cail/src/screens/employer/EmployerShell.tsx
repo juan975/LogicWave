@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { EmployerProfileScreen } from './EmployerProfileScreen';
 import { OffersManagementScreen } from './OffersManagementScreen';
-import { ReceivedApplicationsScreen } from './ReceivedApplicationsScreen';
+import ReceivedApplicationsScreen from './ReceivedApplicationsScreen';
 import { EmployerUserData } from '@/types';
 
 const logo = require('@/assets/0198b872f16fe45d3593d066ae15f05331a33cf2.png');
@@ -65,7 +65,7 @@ export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
             onPress={() => setTab('applications')}
           />
           <EmployerNavItem
-            icon="building"
+            icon="home"
             label="Empresa"
             active={tab === 'profile'}
             onPress={() => setTab('profile')}

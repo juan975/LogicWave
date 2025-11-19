@@ -11,18 +11,18 @@ interface CardProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const toneStyles: Record<Exclude<CardTone, 'default'>, { border: string; background: string }> = {
+const toneStyles: Record<Exclude<CardTone, 'default'>, ViewStyle> = {
   candidate: {
-    border: colors.candidate + '33',
-    background: colors.candidateSurface,
+    borderColor: colors.candidate + '33',
+    backgroundColor: colors.candidateSurface,
   },
   employer: {
-    border: colors.employer + '33',
-    background: colors.employerSurface,
+    borderColor: colors.employer + '33',
+    backgroundColor: colors.employerSurface,
   },
   accent: {
-    border: colors.accent + '33',
-    background: colors.surfaceMuted,
+    borderColor: colors.accent + '33',
+    backgroundColor: colors.surfaceMuted,
   },
 };
 
