@@ -108,9 +108,6 @@ export function JobDiscoveryScreen() {
       </View>
       <View style={styles.offerFooter}>
         <Button label="Postular a oferta" onPress={() => setSelectedOffer(item)} style={styles.offerButton} />
-        <TouchableOpacity style={styles.alertButton}>
-          <Feather name="bell" size={18} color={colors.candidate} />
-        </TouchableOpacity>
       </View>
     </Card>
   );
@@ -199,7 +196,7 @@ export function JobDiscoveryScreen() {
             <InputField label="Enlace a tu CV" value={cvLink} onChangeText={setCvLink} placeholder="https://mi-cv.com" />
             <Text style={styles.modalHelper}>Formatos sugeridos: PDF, DOC, DOCX</Text>
             <InputField
-              label="Carta de presentación (opcional)"
+              label="Carta de Presentación (Opcional)"
               value={notes}
               onChangeText={setNotes}
               placeholder="Describe brevemente tu motivación"
