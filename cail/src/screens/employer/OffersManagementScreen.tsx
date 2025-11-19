@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { 
   ScrollView, 
   StyleSheet, 
@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-type OfferStatus = 'active' | 'archived' | 'draft';
+type OfferStatus = 'active' | 'archived' | 'deleted';
+type OfferAction = 'archive' | 'restore' | 'delete';
 
 interface JobOffer {
   id: string;
@@ -56,6 +57,10 @@ export function OffersManagementScreen() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState<JobOffer | null>(null);
   const [offers, setOffers] = useState<JobOffer[]>(mockOffers);
+  const [pendingAction, setPendingAction] = useState<{
+    type: OfferAction;
+    offer: JobOffer;
+  } | null>(null);
 
   // Form states
   const [title, setTitle] = useState('');
@@ -73,7 +78,12 @@ export function OffersManagementScreen() {
   const filteredOffers = offers.filter(offer => offer.status === selectedTab);
   const activeCount = offers.filter(o => o.status === 'active').length;
   const archivedCount = offers.filter(o => o.status === 'archived').length;
-  const draftCount = offers.filter(o => o.status === 'draft').length;
+  const deletedCount = offers.filter(o => o.status === 'deleted').length;
+  const sectionTitles: Record<OfferStatus, string> = {
+    active: 'Publicadas y Vigentes',
+    archived: 'Historial de Ofertas Archivadas',
+    deleted: 'Historial de Ofertas Retiradas',
+  };
 
   const openCreateModal = () => {
     resetForm();
@@ -141,12 +151,79 @@ export function OffersManagementScreen() {
     setSelectedOffer(null);
   };
 
-  const handleArchiveOffer = (offerId: string) => {
-    const updatedOffers = offers.map(offer =>
-      offer.id === offerId ? { ...offer, status: 'archived' as OfferStatus } : offer
-    );
-    setOffers(updatedOffers);
+  const requestOfferAction = (action: OfferAction, offer: JobOffer) => {
+    setPendingAction({ type: action, offer });
   };
+
+  const closeActionModal = () => setPendingAction(null);
+
+  const handleActionConfirm = () => {
+    if (!pendingAction) return;
+
+    const { type, offer } = pendingAction;
+    setOffers(prev =>
+      prev.map(item => {
+        if (item.id !== offer.id) return item;
+        if (type === 'archive') {
+          return { ...item, status: 'archived' };
+        }
+        if (type === 'restore') {
+          return { ...item, status: 'active' };
+        }
+        return { ...item, status: 'deleted' };
+      })
+    );
+
+    if (type === 'archive') {
+      setSelectedTab('archived');
+    } else if (type === 'restore') {
+      setSelectedTab('active');
+    } else {
+      setSelectedTab('deleted');
+    }
+
+    setPendingAction(null);
+  };
+
+  const actionDetails = useMemo<{
+    title: string;
+    description: string;
+    bullets?: string[];
+    warning?: string;
+    confirmColor: string;
+  } | null>(() => {
+    if (!pendingAction) return null;
+    const { offer, type } = pendingAction;
+
+    switch (type) {
+      case 'archive':
+        return {
+          title: '¿Archivar esta oferta?',
+          description: `La oferta "${offer.title}" será movida al historial de ofertas archivadas.`,
+          bullets: [
+            'No será visible para los candidatos',
+            'Podrás restaurarla cuando desees',
+            'Las postulaciones existentes se conservan',
+          ],
+          confirmColor: '#F59E0B',
+        };
+      case 'restore':
+        return {
+          title: '¿Restaurar esta oferta?',
+          description: `La oferta "${offer.title}" será restaurada y estará activa nuevamente para recibir postulaciones.`,
+          confirmColor: '#10B981',
+        };
+      case 'delete':
+        return {
+          title: '¿Retirar esta oferta permanentemente?',
+          description: `La oferta "${offer.title}" será eliminada permanentemente del sistema.`,
+          warning: 'Esta acción no se puede deshacer. La oferta y sus estadísticas serán eliminadas.',
+          confirmColor: '#EF4444',
+        };
+      default:
+        return null;
+    }
+  }, [pendingAction]);
 
   const addCompetency = () => {
     if (newCompetency.trim()) {
@@ -208,18 +285,18 @@ export function OffersManagementScreen() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.tab, selectedTab === 'draft' && styles.tabActive]}
-          onPress={() => setSelectedTab('draft')}
+          style={[styles.tab, selectedTab === 'deleted' && styles.tabActive]}
+          onPress={() => setSelectedTab('deleted')}
         >
-          <Text style={[styles.tabText, selectedTab === 'draft' && styles.tabTextActive]}>
-            Borradores ({draftCount})
+          <Text style={[styles.tabText, selectedTab === 'deleted' && styles.tabTextActive]}>
+            Borradas ({deletedCount})
           </Text>
         </TouchableOpacity>
       </View>
 
       {/* Lista de ofertas */}
       <ScrollView style={styles.offersList}>
-        <Text style={styles.sectionLabel}>Publicadas y Vigentes</Text>
+        <Text style={styles.sectionLabel}>{sectionTitles[selectedTab]}</Text>
         
         {filteredOffers.length === 0 ? (
           <View style={styles.emptyState}>
@@ -232,7 +309,9 @@ export function OffersManagementScreen() {
               key={offer.id} 
               offer={offer} 
               onEdit={() => openEditModal(offer)}
-              onArchive={() => handleArchiveOffer(offer.id)}
+              onArchive={() => requestOfferAction('archive', offer)}
+              onRestore={() => requestOfferAction('restore', offer)}
+              onDelete={() => requestOfferAction('delete', offer)}
             />
           ))
         )}
@@ -477,6 +556,54 @@ export function OffersManagementScreen() {
           </View>
         </View>
       </Modal>
+
+      <Modal
+        visible={!!pendingAction}
+        animationType="fade"
+        transparent
+        onRequestClose={closeActionModal}
+      >
+        <View style={styles.dialogOverlay}>
+          <View style={styles.dialogCard}>
+            {actionDetails && (
+              <>
+                <Text style={styles.dialogTitle}>{actionDetails.title}</Text>
+                <Text style={styles.dialogDescription}>{actionDetails.description}</Text>
+
+                {actionDetails.bullets && (
+                  <View style={styles.dialogBullets}>
+                    {actionDetails.bullets.map(text => (
+                      <View key={text} style={styles.dialogBulletRow}>
+                        <View style={styles.dialogDot} />
+                        <Text style={styles.dialogBulletText}>{text}</Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
+
+                {actionDetails.warning && (
+                  <View style={styles.dialogWarning}>
+                    <Feather name="alert-triangle" size={16} color="#DC2626" />
+                    <Text style={styles.dialogWarningText}>{actionDetails.warning}</Text>
+                  </View>
+                )}
+
+                <View style={styles.dialogActions}>
+                  <TouchableOpacity style={styles.dialogCancel} onPress={closeActionModal}>
+                    <Text style={styles.dialogCancelText}>Cancelar</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.dialogConfirm, { backgroundColor: actionDetails.confirmColor }]}
+                    onPress={handleActionConfirm}
+                  >
+                    <Text style={styles.dialogConfirmText}>Confirmar</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -484,22 +611,34 @@ export function OffersManagementScreen() {
 function OfferCard({ 
   offer, 
   onEdit, 
-  onArchive 
+  onArchive,
+  onRestore,
+  onDelete,
 }: { 
   offer: JobOffer; 
   onEdit: () => void;
   onArchive: () => void;
+  onRestore: () => void;
+  onDelete: () => void;
 }) {
+  const statusBadge = {
+    active: { label: 'Activa', bg: '#D1FAE5', color: '#059669' },
+    archived: { label: 'Archivada', bg: '#FEF3C7', color: '#B45309' },
+    deleted: { label: 'Borrada', bg: '#FEE2E2', color: '#B91C1C' },
+  }[offer.status];
+
   return (
     <View style={styles.offerCard}>
       <View style={styles.offerHeader}>
         <Text style={styles.offerTitle}>{offer.title}</Text>
         <View style={styles.badges}>
-          <View style={styles.badgeActive}>
-            <Text style={styles.badgeActiveText}>Activa</Text>
+          <View style={[styles.statusBadge, { backgroundColor: statusBadge.bg }]}>
+            <Text style={[styles.statusBadgeText, { color: statusBadge.color }]}>
+              {statusBadge.label}
+            </Text>
           </View>
           <View style={styles.badgeHigh}>
-            <Text style={styles.badgeHighText}>Alta</Text>
+            <Text style={styles.badgeHighText}>{offer.priority}</Text>
           </View>
         </View>
       </View>
@@ -561,14 +700,38 @@ function OfferCard({
       </View>
 
       <View style={styles.offerActions}>
-        <TouchableOpacity style={styles.updateButton} onPress={onEdit}>
-          <Feather name="edit-2" size={16} color="#10B981" />
-          <Text style={styles.updateButtonText}>Actualizar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.archiveButton} onPress={onArchive}>
-          <Feather name="archive" size={16} color="#F59E0B" />
-          <Text style={styles.archiveButtonText}>Archivar</Text>
-        </TouchableOpacity>
+        {offer.status === 'active' && (
+          <>
+            <TouchableOpacity style={styles.updateButton} onPress={onEdit}>
+              <Feather name="edit-2" size={16} color="#10B981" />
+              <Text style={styles.updateButtonText}>Actualizar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.archiveButton} onPress={onArchive}>
+              <Feather name="archive" size={16} color="#F59E0B" />
+              <Text style={styles.archiveButtonText}>Archivar</Text>
+            </TouchableOpacity>
+          </>
+        )}
+
+        {offer.status === 'archived' && (
+          <>
+            <TouchableOpacity style={styles.restoreButton} onPress={onRestore}>
+              <Feather name="rotate-ccw" size={16} color="#10B981" />
+              <Text style={styles.restoreButtonText}>Restaurar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.deleteButton} onPress={onDelete}>
+              <Feather name="trash-2" size={16} color="#DC2626" />
+              <Text style={styles.deleteButtonText}>Eliminar</Text>
+            </TouchableOpacity>
+          </>
+        )}
+
+        {offer.status === 'deleted' && (
+          <View style={styles.deletedTag}>
+            <Feather name="trash-2" size={16} color="#B91C1C" />
+            <Text style={styles.deletedTagText}>Oferta retirada permanentemente</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -699,16 +862,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 6,
   },
-  badgeActive: {
-    backgroundColor: '#D1FAE5',
+  statusBadge: {
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 12,
   },
-  badgeActiveText: {
+  statusBadgeText: {
     fontSize: 11,
     fontWeight: '600',
-    color: '#059669',
   },
   badgeHigh: {
     backgroundColor: '#FEE2E2',
@@ -833,6 +994,55 @@ const styles = StyleSheet.create({
     color: '#F59E0B',
     fontWeight: '600',
     fontSize: 14,
+  },
+  restoreButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#10B981',
+  },
+  restoreButtonText: {
+    color: '#10B981',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  deleteButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#DC2626',
+  },
+  deleteButtonText: {
+    color: '#DC2626',
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  deletedTag: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FECACA',
+    backgroundColor: '#FEF2F2',
+  },
+  deletedTagText: {
+    color: '#B91C1C',
+    fontWeight: '600',
+    fontSize: 13,
   },
   modalOverlay: {
     flex: 1,
@@ -996,6 +1206,96 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   saveText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  dialogOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  dialogCard: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 24,
+  },
+  dialogTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#111827',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  dialogDescription: {
+    fontSize: 14,
+    color: '#4B5563',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  dialogBullets: {
+    gap: 8,
+    marginBottom: 16,
+  },
+  dialogBulletRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+  },
+  dialogDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#D1D5DB',
+    marginTop: 6,
+  },
+  dialogBulletText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#4B5563',
+  },
+  dialogWarning: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    backgroundColor: '#FEF2F2',
+    padding: 12,
+    borderRadius: 12,
+    marginBottom: 16,
+  },
+  dialogWarningText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#B91C1C',
+  },
+  dialogActions: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 4,
+  },
+  dialogCancel: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+  },
+  dialogCancelText: {
+    color: '#6B7280',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  dialogConfirm: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  dialogConfirmText: {
     color: '#fff',
     fontSize: 15,
     fontWeight: '600',
