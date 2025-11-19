@@ -178,165 +178,155 @@ export default function ApplicationsScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <View style={styles.iconBadge}>
-            <Feather name="users" size={20} color="#F59E0B" />
+      <ScrollView
+        style={styles.fullScroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Stats */}
+        <View style={styles.statsContainer}>
+          <View style={styles.statBox}>
+            <Text style={styles.statNumber}>{stats.total}</Text>
+            <Text style={styles.statLabel}>Total</Text>
           </View>
-          <View style={styles.headerText}>
-            <Text style={styles.headerTitle}>Postulaciones</Text>
-            <Text style={styles.headerSubtitle}>
-              Gestión de candidatos y perfiles recibidos
+          <View style={styles.statBox}>
+            <Text style={[styles.statNumber, { color: "#F59E0B" }]}>
+              {stats.pending}
             </Text>
+            <Text style={styles.statLabel}>Pend.</Text>
+          </View>
+          <View style={styles.statBox}>
+            <Text style={[styles.statNumber, { color: "#3B82F6" }]}>
+              {stats.review}
+            </Text>
+            <Text style={styles.statLabel}>Revisión</Text>
+          </View>
+          <View style={styles.statBox}>
+            <Text style={[styles.statNumber, { color: "#10B981" }]}>
+              {stats.accepted}
+            </Text>
+            <Text style={styles.statLabel}>Acept.</Text>
           </View>
         </View>
-        <TouchableOpacity>
-          <Feather name="external-link" size={20} color="#6B7280" />
-        </TouchableOpacity>
-      </View>
 
-      {/* Stats */}
-      <View style={styles.statsContainer}>
-        <View style={styles.statBox}>
-          <Text style={styles.statNumber}>{stats.total}</Text>
-          <Text style={styles.statLabel}>Total</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={[styles.statNumber, { color: "#F59E0B" }]}>
-            {stats.pending}
-          </Text>
-          <Text style={styles.statLabel}>Pend.</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={[styles.statNumber, { color: "#3B82F6" }]}>
-            {stats.review}
-          </Text>
-          <Text style={styles.statLabel}>Revisión</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={[styles.statNumber, { color: "#10B981" }]}>
-            {stats.accepted}
-          </Text>
-          <Text style={styles.statLabel}>Acept.</Text>
-        </View>
-      </View>
+        {/* Filters */}
+        <View style={styles.filtersContainer}>
+          <View style={styles.searchBox}>
+            <Feather name="search" size={16} color="#9CA3AF" />
+            <TextInput
+              style={styles.searchInput}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              placeholder="Buscar por nombre, habilidades..."
+              placeholderTextColor="#9CA3AF"
+            />
+          </View>
 
-      {/* Filters */}
-      <View style={styles.filtersContainer}>
-        <View style={styles.searchBox}>
-          <Feather name="search" size={16} color="#9CA3AF" />
-          <TextInput
-            style={styles.searchInput}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            placeholder="Buscar por nombre, habilidades..."
-            placeholderTextColor="#9CA3AF"
-          />
+          <TouchableOpacity style={styles.filterButton}>
+            <Text style={styles.filterButtonText}>{experienceFilter}</Text>
+            <Feather name="chevron-down" size={16} color="#6B7280" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.filterButton}>
+            <Text style={styles.filterButtonText}>{statusFilter}</Text>
+            <Feather name="chevron-down" size={16} color="#6B7280" />
+          </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterButtonText}>{experienceFilter}</Text>
-          <Feather name="chevron-down" size={16} color="#6B7280" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterButtonText}>{statusFilter}</Text>
-          <Feather name="chevron-down" size={16} color="#6B7280" />
-        </TouchableOpacity>
-      </View>
-
-      {/* View Tabs */}
-      <View style={styles.viewTabs}>
-        <TouchableOpacity
-          style={[
-            styles.viewTab,
-            selectedView === "cvs" && styles.viewTabActive,
-          ]}
-          onPress={() => setSelectedView("cvs")}
-        >
-          <Feather
-            name="file-text"
-            size={16}
-            color={selectedView === "cvs" ? "#1F2937" : "#6B7280"}
-          />
-          <Text
+        {/* View Tabs */}
+        <View style={styles.viewTabs}>
+          <TouchableOpacity
             style={[
-              styles.viewTabText,
-              selectedView === "cvs" && styles.viewTabTextActive,
+              styles.viewTab,
+              selectedView === "cvs" && styles.viewTabActive,
             ]}
+            onPress={() => setSelectedView("cvs")}
           >
-            CVs ({applications.length})
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.viewTab,
-            selectedView === "offers" && styles.viewTabActive,
-          ]}
-          onPress={() => setSelectedView("offers")}
-        >
-          <Feather
-            name="briefcase"
-            size={16}
-            color={selectedView === "offers" ? "#1F2937" : "#6B7280"}
-          />
-          <Text
+            <Feather
+              name="file-text"
+              size={16}
+              color={selectedView === "cvs" ? "#1F2937" : "#6B7280"}
+            />
+            <Text
+              style={[
+                styles.viewTabText,
+                selectedView === "cvs" && styles.viewTabTextActive,
+              ]}
+            >
+              CVs ({applications.length})
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={[
-              styles.viewTabText,
-              selectedView === "offers" && styles.viewTabTextActive,
+              styles.viewTab,
+              selectedView === "offers" && styles.viewTabActive,
             ]}
+            onPress={() => setSelectedView("offers")}
           >
-            Ofertas (3)
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Feather
+              name="briefcase"
+              size={16}
+              color={selectedView === "offers" ? "#1F2937" : "#6B7280"}
+            />
+            <Text
+              style={[
+                styles.viewTabText,
+                selectedView === "offers" && styles.viewTabTextActive,
+              ]}
+            >
+              Ofertas (3)
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      {/* Info Banner */}
-      <View style={styles.infoBanner}>
-        <Feather name="info" size={16} color="#1E40AF" />
-        <Text style={styles.infoBannerText}>
+        {/* Info Banner */}
+        <View style={styles.infoBanner}>
+          <Feather name="info" size={16} color="#1E40AF" />
+          <Text style={styles.infoBannerText}>
+            {selectedView === "cvs"
+              ? "CVs Recibidos Espontáneamente: Candidatos que enviaron su hoja de vida sin aplicar a una oferta específica. Puedes revisar sus perfiles y contactarlos directamente."
+              : "Postulaciones por Oferta: Candidatos que aplicaron específicamente a tus ofertas de trabajo publicadas. Puedes clasificarlos por experiencia, formación y compatibilidad."}
+          </Text>
+        </View>
+
+        {/* Applications List */}
+        <View style={styles.applicationsList}>
           {selectedView === "cvs"
-            ? "CVs Recibidos Espontáneamente: Candidatos que enviaron su hoja de vida sin aplicar a una oferta específica. Puedes revisar sus perfiles y contactarlos directamente."
-            : "Postulaciones por Oferta: Candidatos que aplicaron específicamente a tus ofertas de trabajo publicadas. Puedes clasificarlos por experiencia, formación y compatibilidad."}
-        </Text>
-      </View>
-
-      {/* Applications List */}
-      <ScrollView style={styles.applicationsList}>
-        {selectedView === "cvs"
-          ? applications
-              .filter(
-                (app) => app.status === "pending" || app.status === "review"
-              )
-              .map((app) => (
-                <ApplicationCard
-                  key={app.id}
-                  application={app}
-                  onPress={() => openEvaluationModal(app)}
-                  getStatusBadge={getStatusBadge}
-                />
-              ))
-          : Object.entries(groupedApplications).map(([position, apps]) => (
-              <View key={position} style={styles.positionGroup}>
-                <View style={styles.positionHeader}>
-                  <Feather name="briefcase" size={16} color="#F59E0B" />
-                  <Text style={styles.positionTitle}>{position}</Text>
-                  <Text style={styles.positionCount}>
-                    {apps.length} postulaciones
-                  </Text>
-                </View>
-                {apps.map((app) => (
+            ? applications
+                .filter(
+                  (app) => app.status === "pending" || app.status === "review"
+                )
+                .map((app) => (
                   <ApplicationCard
                     key={app.id}
                     application={app}
                     onPress={() => openEvaluationModal(app)}
                     getStatusBadge={getStatusBadge}
-                    compact
                   />
-                ))}
-              </View>
-            ))}
+                ))
+            : Object.entries(groupedApplications).map(
+                ([position, apps]) => (
+                  <View key={position} style={styles.positionGroup}>
+                    <View style={styles.positionHeader}>
+                      <Feather name="briefcase" size={16} color="#F59E0B" />
+                      <Text style={styles.positionTitle}>{position}</Text>
+                      <Text style={styles.positionCount}>
+                        {apps.length} postulaciones
+                      </Text>
+                    </View>
+                    {apps.map((app) => (
+                      <ApplicationCard
+                        key={app.id}
+                        application={app}
+                        onPress={() => openEvaluationModal(app)}
+                        getStatusBadge={getStatusBadge}
+                        compact
+                      />
+                    ))}
+                  </View>
+                )
+              )}
+        </View>
       </ScrollView>
 
       {/* Evaluation Modal */}
@@ -583,6 +573,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F9FAFB",
   },
+  fullScroll: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 32,
+  },
   header: {
     backgroundColor: "#fff",
     padding: 20,
@@ -736,7 +732,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   applicationsList: {
-    flex: 1,
+    width: "100%",
     padding: 20,
   },
   positionGroup: {
