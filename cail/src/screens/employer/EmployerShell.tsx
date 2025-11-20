@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 import { EmployerProfileScreen } from './EmployerProfileScreen';
 import { OffersManagementScreen } from './OffersManagementScreen';
 import ReceivedApplicationsScreen from './ReceivedApplicationsScreen';
@@ -18,6 +19,7 @@ interface EmployerShellProps {
 
 export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
   const [tab, setTab] = useState<EmployerTab>('offers');
+  const { contentWidth, horizontalGutter } = useResponsiveLayout();
 
   const renderScreen = () => {
     switch (tab) {
@@ -32,26 +34,30 @@ export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingHorizontal: horizontalGutter }]}>
         {/* Header simple */}
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <Image source={logo} style={styles.logo} />
-            <View>
-              <Text style={styles.headerLabel}>Empleador</Text>
-              <Text style={styles.headerCompany}>{userData.company}</Text>
+        <View style={[styles.maxWidth, { maxWidth: contentWidth }]}>
+          <View style={styles.header}>
+            <View style={styles.headerLeft}>
+              <Image source={logo} style={styles.logo} />
+              <View>
+                <Text style={styles.headerLabel}>Empleador</Text>
+                <Text style={styles.headerCompany}>{userData.company}</Text>
+              </View>
             </View>
+            <TouchableOpacity onPress={onLogout} style={styles.logoutBtn}>
+              <Feather name="log-out" color="#374151" size={20} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={onLogout} style={styles.logoutBtn}>
-            <Feather name="log-out" color="#374151" size={20} />
-          </TouchableOpacity>
         </View>
 
         {/* Contenido */}
-        <View style={styles.content}>{renderScreen()}</View>
+        <View style={[styles.contentWrapper, styles.maxWidth, { maxWidth: contentWidth }]}>
+          <View style={styles.content}>{renderScreen()}</View>
+        </View>
 
         {/* Navbar inferior */}
-        <View style={styles.navbar}>
+        <View style={[styles.navbar, styles.maxWidth, { maxWidth: contentWidth }]}>
           <EmployerNavItem
             icon="briefcase"
             label="Ofertas"
@@ -107,6 +113,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9FAFB',
   },
   container: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  maxWidth: {
+    width: '100%',
+    alignSelf: 'center',
+  },
+  contentWrapper: {
     flex: 1,
   },
   header: {

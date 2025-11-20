@@ -9,6 +9,7 @@ import {
   Modal
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 
 type OfferStatus = 'active' | 'archived' | 'deleted';
 type OfferAction = 'archive' | 'restore' | 'delete';
@@ -52,6 +53,7 @@ const mockOffers: JobOffer[] = [
 ];
 
 export function OffersManagementScreen() {
+  const { isTablet, isDesktop, contentWidth, horizontalGutter } = useResponsiveLayout();
   const [selectedTab, setSelectedTab] = useState<OfferStatus>('active');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -248,9 +250,9 @@ export function OffersManagementScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingHorizontal: horizontalGutter }]}>
       {/* Header con título y botón */}
-      <View style={styles.header}>
+      <View style={[styles.header, styles.maxWidth, { maxWidth: contentWidth }]}>
         <View style={styles.headerContent}>
           <View style={styles.iconBadge}>
             <Feather name="briefcase" size={20} color="#F59E0B" />
@@ -267,7 +269,7 @@ export function OffersManagementScreen() {
       </View>
 
       {/* Tabs */}
-      <View style={styles.tabs}>
+      <View style={[styles.tabs, styles.maxWidth, { maxWidth: contentWidth }]}>
         <TouchableOpacity
           style={[styles.tab, selectedTab === 'active' && styles.tabActive]}
           onPress={() => setSelectedTab('active')}
@@ -295,7 +297,7 @@ export function OffersManagementScreen() {
       </View>
 
       {/* Lista de ofertas */}
-      <ScrollView style={styles.offersList}>
+      <ScrollView style={[styles.offersList, styles.maxWidth, { maxWidth: contentWidth }]}>
         <Text style={styles.sectionLabel}>{sectionTitles[selectedTab]}</Text>
         
         {filteredOffers.length === 0 ? (
@@ -325,7 +327,14 @@ export function OffersManagementScreen() {
         onRequestClose={() => setShowCreateModal(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+          <View
+            style={[
+              styles.modalContent,
+              isDesktop && styles.modalContentDesktop,
+              !isDesktop && styles.modalContentMobile,
+              { maxWidth: contentWidth },
+            ]}
+          >
             <View style={styles.modalHeader}>
               <View style={styles.modalHeaderLeft}>
                 <Feather name="briefcase" size={20} color="#F59E0B" />
@@ -484,7 +493,14 @@ export function OffersManagementScreen() {
         onRequestClose={() => setShowEditModal(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
+          <View
+            style={[
+              styles.modalContent,
+              isDesktop && styles.modalContentDesktop,
+              !isDesktop && styles.modalContentMobile,
+              { maxWidth: contentWidth },
+            ]}
+          >
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Actualizar Oferta</Text>
               <TouchableOpacity onPress={() => setShowEditModal(false)}>
@@ -521,7 +537,7 @@ export function OffersManagementScreen() {
                 />
               </View>
 
-              <View style={styles.row}>
+              <View style={[styles.row, styles.responsiveRow]}>
                 <View style={[styles.inputGroup, styles.flex1]}>
                   <Text style={styles.label}>Salario</Text>
                   <TextInput
@@ -564,7 +580,7 @@ export function OffersManagementScreen() {
         onRequestClose={closeActionModal}
       >
         <View style={styles.dialogOverlay}>
-          <View style={styles.dialogCard}>
+          <View style={[styles.dialogCard, { maxWidth: isDesktop ? 420 : contentWidth }]}>
             {actionDetails && (
               <>
                 <Text style={styles.dialogTitle}>{actionDetails.title}</Text>
@@ -820,6 +836,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  maxWidth: {
+    width: '100%',
+    alignSelf: 'center',
+  },
   sectionLabel: {
     fontSize: 12,
     fontWeight: '600',
@@ -1047,14 +1067,22 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 24,
   },
   modalContent: {
     backgroundColor: '#fff',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    padding: 24,
-    maxHeight: '90%',
+    borderRadius: 20,
+    padding: 20,
+    maxHeight: '92%',
+    width: '100%',
+  },
+  modalContentDesktop: {
+    padding: 28,
+  },
+  modalContentMobile: {
+    marginHorizontal: 0,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -1178,10 +1206,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 12,
   },
+  responsiveRow: {
+    flexWrap: 'wrap',
+  },
   modalActions: {
     flexDirection: 'row',
     gap: 12,
     marginTop: 8,
+    flexWrap: 'wrap',
   },
   cancelButton: {
     flex: 1,

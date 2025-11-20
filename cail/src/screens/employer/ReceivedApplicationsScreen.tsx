@@ -253,7 +253,7 @@ export default function ApplicationsScreen() {
                 selectedView === "cvs" && styles.viewTabTextActive,
               ]}
             >
-              CVs ({applications.length})
+              CVs Espontáneos({applications.length})
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -274,7 +274,7 @@ export default function ApplicationsScreen() {
                 selectedView === "offers" && styles.viewTabTextActive,
               ]}
             >
-              Ofertas (3)
+              Por Ofertas (3)
             </Text>
           </TouchableOpacity>
         </View>

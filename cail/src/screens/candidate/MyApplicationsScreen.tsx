@@ -96,8 +96,12 @@ export function MyApplicationsScreen() {
           >
             <View style={styles.rowBetween}>
               <View>
-                <Text style={styles.title}>{application.title}</Text>
-                <Text style={styles.subtitle}>{application.company}</Text>
+                <Text style={styles.title} numberOfLines={2}>
+                  {application.title}
+                </Text>
+                <Text style={styles.subtitle} numberOfLines={1}>
+                  {application.company}
+                </Text>
               </View>
               <StatusBadge label={tone.label} tone={tone.tone} />
             </View>
@@ -147,6 +151,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 12,
     gap: 12,
+    flexWrap: 'wrap',
   },
   summaryStat: {
     flex: 1,
@@ -189,13 +194,14 @@ const styles = StyleSheet.create({
   },
   metaRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
+    flexWrap: 'wrap',
+    gap: 8,
   },
   metaRowItem: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    flexShrink: 1,
   },
   metaText: {
     color: colors.textSecondary,

@@ -15,12 +15,6 @@ export function NotificationsScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Card tone="accent" spacing="lg">
-        <Text style={styles.centerEyebrow}>Centro de notificaciones</Text>
-        <Text style={styles.centerTitle}>No hay alertas sin leer</Text>
-        <Text style={styles.centerSubtitle}>Recibe actualizaciones sobre nuevas ofertas y el estado de tus postulaciones.</Text>
-      </Card>
-
       <View style={styles.tabBar}>
         <TabButton label="Notificaciones" active={tab === 'feed'} onPress={() => setTab('feed')} />
         <TabButton label="Configuración" active={tab === 'settings'} onPress={() => setTab('settings')} />
@@ -84,11 +78,11 @@ function TabButton({ label, active, onPress }: { label: string; active: boolean;
 
 function getCategoryColor(category?: string) {
   switch (category) {
-    case 'proceso':
+    case 'Proceso':
       return colors.info;
-    case 'sugerencia':
+    case 'Sugerencia':
       return colors.candidate;
-    case 'alerta':
+    case 'Alerta':
       return colors.danger;
     default:
       return colors.muted;

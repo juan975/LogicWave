@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
 import { InputField } from '@/components/ui/InputField';
@@ -28,6 +29,7 @@ interface FilterState {
 }
 
 export function JobDiscoveryScreen() {
+  const { isTablet, contentWidth, horizontalGutter } = useResponsiveLayout();
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     modality: 'Todos',
@@ -64,6 +66,15 @@ export function JobDiscoveryScreen() {
     });
   }, [filters]);
 
+  const widthLimiter = useMemo(
+    () => ({
+      width: '100%',
+      maxWidth: contentWidth,
+      alignSelf: 'center',
+    }),
+    [contentWidth],
+  );
+
   const resetModal = () => {
     setCvLink('');
     setNotes('');
@@ -80,7 +91,7 @@ export function JobDiscoveryScreen() {
   };
 
   const renderOffer = ({ item }: { item: JobOffer }) => (
-    <Card style={styles.offerCard}>
+    <Card style={[styles.offerCard, widthLimiter]}>
       <View style={styles.offerHeader}>
         <View>
           <Text style={styles.offerTitle}>{item.title}</Text>
@@ -118,9 +129,9 @@ export function JobDiscoveryScreen() {
         data={filteredOffers}
         keyExtractor={(item) => item.id}
         renderItem={renderOffer}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[styles.listContent, { paddingHorizontal: horizontalGutter }]}
         ListHeaderComponent={
-          <View style={styles.headerArea}>
+          <View style={[styles.headerArea, widthLimiter, isTablet && styles.headerRow]}>
             <Card spacing="lg" style={styles.indicatorsCard}>
               <Text style={styles.indicatorTitle}>Indicadores - monitorea la demanda</Text>
               <View style={styles.indicatorRow}>
@@ -190,7 +201,10 @@ export function JobDiscoveryScreen() {
       />
 
       <Modal visible={!!selectedOffer} animationType="slide" transparent>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalContainer}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={[styles.modalContainer, { paddingHorizontal: horizontalGutter }]}
+        >
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Postular a {selectedOffer?.title}</Text>
             <InputField label="Enlace a tu CV" value={cvLink} onChangeText={setCvLink} placeholder="https://mi-cv.com" />
@@ -244,12 +258,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listContent: {
-    padding: 16,
+    paddingVertical: 16,
     paddingBottom: 120,
     gap: 16,
   },
   headerArea: {
     marginBottom: 12,
+    gap: 16,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
     gap: 16,
   },
   heroCard: {
@@ -275,6 +294,7 @@ const styles = StyleSheet.create({
   },
   indicatorsCard: {
     gap: 14,
+    flex: 1,
   },
   indicatorTitle: {
     fontWeight: '600',
@@ -282,6 +302,7 @@ const styles = StyleSheet.create({
   },
   indicatorRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 12,
   },
   indicatorPill: {
@@ -317,6 +338,7 @@ const styles = StyleSheet.create({
   },
   filtersCard: {
     gap: 12,
+    flex: 1,
   },
   filterRow: {
     flexDirection: 'row',
@@ -393,6 +415,8 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     padding: 22,
     gap: 12,
+    maxWidth: 520,
+    alignSelf: 'center',
   },
   modalTitle: {
     fontSize: 20,

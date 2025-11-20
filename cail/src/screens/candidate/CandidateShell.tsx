@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '@/theme/colors';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 import { CandidateProfileScreen } from './CandidateProfileScreen';
 import { JobDiscoveryScreen } from './JobDiscoveryScreen';
 import { MyApplicationsScreen } from './MyApplicationsScreen';
@@ -20,6 +21,7 @@ interface CandidateShellProps {
 
 export function CandidateShell({ userData, onLogout }: CandidateShellProps) {
   const [tab, setTab] = useState<CandidateTab>('discovery');
+  const { contentWidth, horizontalGutter } = useResponsiveLayout();
 
   const renderScreen = () => {
     switch (tab) {
@@ -36,24 +38,26 @@ export function CandidateShell({ userData, onLogout }: CandidateShellProps) {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <View style={styles.container}>
-        <View style={styles.headerCard}>
-          <View style={styles.headerLeft}>
-            <View style={styles.logoBadge}>
-              <Image source={logo} style={styles.logo} />
+      <View style={[styles.container, { paddingHorizontal: horizontalGutter }]}>
+        <View style={[styles.maxWidth, styles.flexFill, { maxWidth: contentWidth }]}>
+          <View style={styles.headerCard}>
+            <View style={styles.headerLeft}>
+              <View style={styles.logoBadge}>
+                <Image source={logo} style={styles.logo} />
+              </View>
+              <View>
+                <Text style={styles.headerEyebrow}>Candidato</Text>
+                <Text style={styles.headerTitle}>Bolsa de Empleo CAIL</Text>
+                <Text style={styles.headerSubtitle}>Hola, {userData.name}</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.headerEyebrow}>Candidato</Text>
-              <Text style={styles.headerTitle}>Bolsa de Empleo CAIL</Text>
-              <Text style={styles.headerSubtitle}>Hola, {userData.name}</Text>
-            </View>
+            <TouchableOpacity onPress={onLogout} style={styles.logoutBtn}>
+              <Feather name="log-out" color={colors.candidateDark} size={18} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={onLogout} style={styles.logoutBtn}>
-            <Feather name="log-out" color={colors.candidateDark} size={18} />
-          </TouchableOpacity>
+          <View style={styles.content}>{renderScreen()}</View>
         </View>
-        <View style={styles.content}>{renderScreen()}</View>
-        <View style={styles.navbar}>
+        <View style={[styles.navbar, styles.maxWidth, { maxWidth: contentWidth }]}>
           <NavItem icon="search" label="Descubrir" active={tab === 'discovery'} onPress={() => setTab('discovery')} />
           <NavItem
             icon="file-text"
@@ -104,6 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 12,
+  },
+  maxWidth: {
+    width: '100%',
+    alignSelf: 'center',
+  },
+  flexFill: {
+    flex: 1,
   },
   headerCard: {
     flexDirection: 'row',
