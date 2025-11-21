@@ -4,8 +4,10 @@ import { Card } from '@/components/ui/Card';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { colors } from '@/theme/colors';
 import { NOTIFICATION_ITEMS, NOTIFICATION_PREFERENCES } from '@/data/mockData';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 
 export function NotificationsScreen() {
+  const { contentWidth, horizontalGutter } = useResponsiveLayout();
   const [preferences, setPreferences] = useState(NOTIFICATION_PREFERENCES);
   const [tab, setTab] = useState<'feed' | 'settings'>('feed');
 
@@ -14,7 +16,7 @@ export function NotificationsScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: horizontalGutter }]}>
       <View style={styles.tabBar}>
         <TabButton label="Notificaciones" active={tab === 'feed'} onPress={() => setTab('feed')} />
         <TabButton label="Configuración" active={tab === 'settings'} onPress={() => setTab('settings')} />
@@ -24,7 +26,7 @@ export function NotificationsScreen() {
         <>
           <SectionHeader title="Resumen" subtitle="Últimas actualizaciones" />
           {NOTIFICATION_ITEMS.map((item) => (
-            <Card key={item.id} style={styles.notificationCard}>
+            <Card key={item.id} style={[styles.notificationCard, styles.fullWidth, { maxWidth: contentWidth }]}>
               <View style={styles.notificationHeader}>
                 <View style={styles.iconBadge}>
                   <Text style={styles.iconBadgeText}>{item.title.charAt(0)}</Text>
@@ -46,7 +48,7 @@ export function NotificationsScreen() {
           ))}
         </>
       ) : (
-        <Card spacing="lg">
+        <Card spacing="lg" style={[styles.fullWidth, { maxWidth: contentWidth }]}>
           <SectionHeader title="Preferencias" subtitle="Activa los canales que prefieras" />
           {preferences.map((pref) => (
             <View key={pref.id} style={styles.preferenceRow}>
@@ -94,6 +96,10 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 16,
     paddingBottom: 120,
+  },
+  fullWidth: {
+    width: '100%',
+    alignSelf: 'center',
   },
   centerEyebrow: {
     textTransform: 'uppercase',

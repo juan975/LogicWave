@@ -5,6 +5,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { colors } from '@/theme/colors';
 import { CANDIDATE_APPLICATIONS } from '@/data/mockData';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 
 const statusTone: Record<
   string,
@@ -53,6 +54,7 @@ const statusTone: Record<
 };
 
 export function MyApplicationsScreen() {
+  const { contentWidth, horizontalGutter } = useResponsiveLayout();
   const summary = CANDIDATE_APPLICATIONS.reduce(
     (acc, app) => {
       acc.total += 1;
@@ -63,8 +65,8 @@ export function MyApplicationsScreen() {
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Card tone="accent" spacing="lg">
+    <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: horizontalGutter }]}>
+      <Card tone="accent" spacing="lg" style={[styles.fullWidth, { maxWidth: contentWidth }]}>
         <Text style={styles.summaryEyebrow}>Gestión de Postulaciones</Text>
         <Text style={styles.summaryTitle}>Seguimiento en tiempo real</Text>
         <View style={styles.summaryRow}>
@@ -83,7 +85,9 @@ export function MyApplicationsScreen() {
         </View>
       </Card>
 
-      <SectionHeader title="Mis postulaciones" subtitle="Estados, recordatorios y próximos pasos" />
+      <View style={[styles.fullWidth, { maxWidth: contentWidth }]}>
+        <SectionHeader title="Mis postulaciones" subtitle="Estados, recordatorios y próximos pasos" />
+      </View>
       {CANDIDATE_APPLICATIONS.map((application) => {
         const tone = statusTone[application.status];
         return (
@@ -92,6 +96,8 @@ export function MyApplicationsScreen() {
             style={[
               styles.card,
               { borderColor: tone.accent + '33', backgroundColor: tone.background },
+              styles.fullWidth,
+              { maxWidth: contentWidth },
             ]}
           >
             <View style={styles.rowBetween}>
@@ -135,6 +141,10 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 16,
     paddingBottom: 120,
+  },
+  fullWidth: {
+    width: '100%',
+    alignSelf: 'center',
   },
   summaryEyebrow: {
     color: colors.muted,

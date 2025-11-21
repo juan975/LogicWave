@@ -6,11 +6,13 @@ import { InputField } from '@/components/ui/InputField';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 import { CandidateProfileForm } from '@/types';
 import { initialCandidateProfile } from '@/data/mockData';
 import { colors } from '@/theme/colors';
 
 export function CandidateProfileScreen() {
+  const { contentWidth, horizontalGutter } = useResponsiveLayout();
   const [form, setForm] = useState<CandidateProfileForm>(initialCandidateProfile);
   const [newSkill, setNewSkill] = useState('');
   const [newSoftSkill, setNewSoftSkill] = useState('');
@@ -53,8 +55,8 @@ export function CandidateProfileScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Card tone="accent" spacing="lg">
+    <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: horizontalGutter }]}>
+      <Card tone="accent" spacing="lg" style={[styles.fullWidth, { maxWidth: contentWidth }]}>
         <SectionHeader title="Mi perfil profesional" subtitle="Administra tus datos personales, profesionales y experiencia" />
         <View style={styles.tabs}>
           <ProfileTab label="Personal" active={activeTab === 'personal'} onPress={() => setActiveTab('personal')} />
@@ -64,7 +66,7 @@ export function CandidateProfileScreen() {
       </Card>
 
       {activeTab === 'personal' && (
-        <Card style={styles.sectionCard}>
+        <Card style={[styles.sectionCard, styles.fullWidth, { maxWidth: contentWidth }]}>
           <SectionHeader title="Información personal" subtitle="Esta información es visible para los empleadores" />
           <InputField label="Nombre completo" value={form.fullName} onChangeText={(text) => updateField('fullName', text)} />
           <InputField label="Correo" value={form.email} onChangeText={(text) => updateField('email', text)} autoCapitalize="none" />
@@ -76,7 +78,7 @@ export function CandidateProfileScreen() {
 
       {activeTab === 'professional' && (
         <>
-          <Card style={styles.sectionCard}>
+          <Card style={[styles.sectionCard, styles.fullWidth, { maxWidth: contentWidth }]}>
             <SectionHeader title="Resumen profesional" subtitle="Describe tu perfil y rol objetivo" />
             <InputField
               label="Resumen"
@@ -85,7 +87,7 @@ export function CandidateProfileScreen() {
               multiline
             />
           </Card>
-          <Card style={styles.sectionCard}>
+          <Card style={[styles.sectionCard, styles.fullWidth, { maxWidth: contentWidth }]}>
             <SectionHeader title="Habilidades técnicas" subtitle="Agrega tecnologías o certificaciones clave" />
             <View style={styles.tagList}>
               {form.technicalSkills.map((skill, index) => (
@@ -102,7 +104,7 @@ export function CandidateProfileScreen() {
               }}
             />
           </Card>
-          <Card style={styles.sectionCard}>
+          <Card style={[styles.sectionCard, styles.fullWidth, { maxWidth: contentWidth }]}>
             <SectionHeader title="Habilidades blandas" subtitle="Fortalezas personales y sociales" />
             <View style={styles.tagList}>
               {form.softSkills.map((skill, index) => (
@@ -124,7 +126,7 @@ export function CandidateProfileScreen() {
 
       {activeTab === 'experience' && (
         <>
-          <Card style={styles.sectionCard}>
+          <Card style={[styles.sectionCard, styles.fullWidth, { maxWidth: contentWidth }]}>
             <SectionHeader title="Competencias" subtitle="Selecciona tus competencias clave" />
             <View style={styles.tagList}>
               {form.competencies.map((skill, index) => (
@@ -141,7 +143,7 @@ export function CandidateProfileScreen() {
               }}
             />
           </Card>
-          <Card style={styles.sectionCard}>
+          <Card style={[styles.sectionCard, styles.fullWidth, { maxWidth: contentWidth }]}>
             <SectionHeader title="Experiencia laboral" subtitle="Registra tus últimos cargos o prácticas" />
             <View style={styles.emptyState}>
               <Text style={styles.emptyTitle}>Aún no registras experiencia</Text>
@@ -152,7 +154,12 @@ export function CandidateProfileScreen() {
         </>
       )}
 
-      <Button label="Guardar cambios" onPress={handleSave} fullWidth style={styles.saveBtn} />
+      <Button
+        label="Guardar cambios"
+        onPress={handleSave}
+        fullWidth
+        style={[styles.saveBtn, styles.fullWidth, { maxWidth: contentWidth, alignSelf: 'center' }]}
+      />
     </ScrollView>
   );
 }
@@ -173,6 +180,11 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     gap: 16,
+    paddingHorizontal: 0,
+  },
+  fullWidth: {
+    width: '100%',
+    alignSelf: 'center',
   },
   tabs: {
     flexDirection: 'row',

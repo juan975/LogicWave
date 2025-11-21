@@ -4,10 +4,12 @@ import { Card } from '@/components/ui/Card';
 import { InputField } from '@/components/ui/InputField';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
+import { useResponsiveLayout } from '@/hooks/useResponsive';
 import { EmployerProfileForm } from '@/types';
 import { initialEmployerProfile } from '@/data/mockData';
 
 export function EmployerProfileScreen() {
+  const { contentWidth, horizontalGutter } = useResponsiveLayout();
   const [form, setForm] = useState<EmployerProfileForm>(initialEmployerProfile);
 
   const updateField = (key: keyof EmployerProfileForm, value: string) => {
@@ -15,8 +17,8 @@ export function EmployerProfileScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Card>
+    <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: horizontalGutter }]}>
+      <Card style={[styles.card, { maxWidth: contentWidth, alignSelf: 'center' }]}>
         <SectionHeader title="Perfil empresarial" subtitle="Esta información será visible para los candidatos" />
         <InputField label="Razón social" value={form.companyName} onChangeText={(text) => updateField('companyName', text)} />
         <InputField label="Persona de contacto" value={form.contactName} onChangeText={(text) => updateField('contactName', text)} />
@@ -43,5 +45,8 @@ const styles = StyleSheet.create({
     padding: 16,
     gap: 12,
     paddingBottom: 120,
+  },
+  card: {
+    width: '100%',
   },
 });
