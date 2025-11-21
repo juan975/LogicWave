@@ -133,44 +133,43 @@ export function JobDiscoveryScreen() {
         contentContainerStyle={[styles.listContent, { paddingHorizontal: horizontalGutter }]}
         ListHeaderComponent={
           <View style={[styles.headerArea, widthLimiter, isTablet && styles.headerRow]}>
-            <Card spacing="lg" style={styles.indicatorsCard}>
-              <Text style={styles.indicatorTitle}>Indicadores - monitorea la demanda</Text>
-              <View style={styles.indicatorRow}>
-                <View style={styles.indicatorPill}>
-                  <Text style={styles.indicatorValue}>{summary.totalVacancies}</Text>
-                  <Text style={styles.indicatorLabel}>Vacantes activas</Text>
+            <Card spacing="lg" style={[styles.surfaceCard, styles.heroCard, isTablet && styles.heroCardWide]}>
+              <View style={styles.heroHeader}>
+                <View style={styles.heroIcon}>
+                  <Feather name="compass" size={18} color={colors.candidateDark} />
                 </View>
-                <View style={styles.indicatorPill}>
-                  <Text style={styles.indicatorValue}>{summary.industries}</Text>
-                  <Text style={styles.indicatorLabel}>Industrias</Text>
-                </View>
-              </View>
-              <View style={styles.breakdownBox}>
-                <Text style={styles.breakdownTitle}>Demanda por sector</Text>
-                <View style={styles.breakdownRow}>
-                  {summary.sectorBreakdown.slice(0, 3).map(([sector, count]) => (
-                    <Chip key={sector} label={`${sector}: ${count}`} active />
-                  ))}
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.heroEyebrow}>Explorar</Text>
+                  <Text style={styles.heroTitle}>Descubre oportunidades</Text>
+                  <Text style={styles.heroSubtitle}>Filtra por modalidad, sector o ubicación y postula al instante.</Text>
                 </View>
               </View>
-              <View style={styles.breakdownBox}>
-                <Text style={styles.breakdownTitle}>Demanda por ubicación</Text>
-                <View style={styles.breakdownRow}>
-                  {summary.locationBreakdown.slice(0, 3).map(([city, count]) => (
-                    <Chip key={city} label={`${city}: ${count}`} color={colors.info} active />
-                  ))}
+              <View style={styles.statRow}>
+                <View style={styles.statCard}>
+                  <Text style={styles.statValue}>{summary.totalVacancies}</Text>
+                  <Text style={styles.statLabel}>Vacantes activas</Text>
+                </View>
+                <View style={styles.statCard}>
+                  <Text style={styles.statValue}>{summary.industries}</Text>
+                  <Text style={styles.statLabel}>Industrias</Text>
+                </View>
+                <View style={styles.statCard}>
+                  <Text style={styles.statValue}>{summary.locationBreakdown.length}</Text>
+                  <Text style={styles.statLabel}>Ubicaciones</Text>
                 </View>
               </View>
             </Card>
 
-            <Card spacing="lg" style={styles.filtersCard}>
-              <SectionHeader title="Filtrar ofertas" subtitle="Busca por título, empresa, experiencia o sector" />
+            <Card spacing="lg" style={[styles.surfaceCard, styles.filtersCard, isTablet && styles.filtersCardWide]}>
+              <SectionHeader title="Filtrar ofertas" subtitle="Busca por título, empresa, experiencia o sector" accentColor={colors.candidate} />
               <InputField
+                tone="candidate"
                 label="Buscar"
                 value={filters.search}
                 onChangeText={(text) => setFilters((prev) => ({ ...prev, search: text }))}
                 placeholder="Ej. Ingeniero de producción, Analista de calidad..."
               />
+              <Text style={styles.filterLabel}>Modalidad</Text>
               <View style={styles.filterRow}>
                 {(['Todos', 'Presencial', 'Híbrido', 'Remoto'] as FilterState['modality'][]).map((modality) => (
                   <Chip
@@ -181,6 +180,7 @@ export function JobDiscoveryScreen() {
                   />
                 ))}
               </View>
+              <Text style={styles.filterLabel}>Sector</Text>
               <View style={styles.filterRow}>
                 {['Todos', 'Tecnología', 'Manufactura', 'Servicios', 'Comercio'].map((industry) => (
                   <Chip
@@ -257,6 +257,7 @@ function Meta({ icon, label }: { icon: keyof typeof Feather.glyphMap; label: str
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F9FAFB',
   },
   listContent: {
     paddingVertical: 16,
@@ -273,7 +274,24 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   heroCard: {
-    gap: 8,
+    gap: 14,
+    flex: 1,
+  },
+  heroCardWide: {
+    flex: 1.1,
+  },
+  heroHeader: {
+    flexDirection: 'row',
+    gap: 12,
+    alignItems: 'center',
+  },
+  heroIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: colors.candidateSurface,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   heroEyebrow: {
     textTransform: 'uppercase',
@@ -288,67 +306,72 @@ const styles = StyleSheet.create({
   },
   heroSubtitle: {
     color: colors.textSecondary,
+    marginTop: 2,
   },
-  heroButton: {
-    marginTop: 8,
-    alignSelf: 'flex-start',
-  },
-  indicatorsCard: {
-    gap: 14,
-    flex: 1,
-  },
-  indicatorTitle: {
-    fontWeight: '600',
-    color: colors.textSecondary,
-  },
-  indicatorRow: {
+  statRow: {
     flexDirection: 'row',
+    gap: 10,
     flexWrap: 'wrap',
-    gap: 12,
+    marginTop: 4,
   },
-  indicatorPill: {
+  statCard: {
     flex: 1,
-    borderRadius: 16,
+    minWidth: 110,
     backgroundColor: colors.surfaceMuted,
+    borderRadius: 14,
     paddingVertical: 12,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
   },
-  indicatorValue: {
-    fontSize: 24,
+  statValue: {
+    fontSize: 20,
     fontWeight: '700',
     color: colors.textPrimary,
   },
-  indicatorLabel: {
+  statLabel: {
     color: colors.textSecondary,
     marginTop: 4,
   },
-  breakdownBox: {
-    backgroundColor: colors.surfaceMuted,
+  surfaceCard: {
+    backgroundColor: colors.surface,
     borderRadius: 16,
-    padding: 12,
-    gap: 8,
-  },
-  breakdownTitle: {
-    fontWeight: '600',
-    color: colors.textSecondary,
-  },
-  breakdownRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
   filtersCard: {
     gap: 12,
     flex: 1,
   },
+  filtersCardWide: {
+    flex: 1,
+  },
+  filterLabel: {
+    fontWeight: '600',
+    color: colors.textSecondary,
+    marginTop: 4,
+  },
   filterRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
-    marginTop: 8,
+    marginTop: 6,
   },
   offerCard: {
     gap: 12,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
   offerHeader: {
     flexDirection: 'row',

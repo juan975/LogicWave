@@ -65,64 +65,65 @@ export function MyApplicationsScreen() {
   );
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: horizontalGutter }]}>
-      <Card tone="accent" spacing="lg" style={[styles.fullWidth, { maxWidth: contentWidth }]}>
-        <Text style={styles.summaryEyebrow}>Gestión de Postulaciones</Text>
-        <Text style={styles.summaryTitle}>Seguimiento en tiempo real</Text>
-        <View style={styles.summaryRow}>
-          <View style={styles.summaryStat}>
-            <Text style={styles.summaryValue}>{summary.total}</Text>
-            <Text style={styles.summaryLabel}>Total postulaciones</Text>
-          </View>
-          <View style={styles.summaryStat}>
-            <Text style={styles.summaryValue}>{summary.revision}</Text>
-            <Text style={styles.summaryLabel}>En revisión</Text>
-          </View>
-          <View style={styles.summaryStat}>
-            <Text style={styles.summaryValue}>{summary.oferta}</Text>
-            <Text style={styles.summaryLabel}>Ofertas</Text>
+    <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
+      <View style={[styles.stack, { paddingHorizontal: horizontalGutter, maxWidth: contentWidth, alignSelf: 'center' }]}>
+        <View style={[styles.surfaceCard, styles.heroCard]}>
+          <Text style={styles.summaryEyebrow}>Gestión de Postulaciones</Text>
+          <Text style={styles.summaryTitle}>Seguimiento en tiempo real</Text>
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryStat}>
+              <Text style={styles.summaryValue}>{summary.total}</Text>
+              <Text style={styles.summaryLabel}>Total postulaciones</Text>
+            </View>
+            <View style={styles.summaryStat}>
+              <Text style={styles.summaryValue}>{summary.revision}</Text>
+              <Text style={styles.summaryLabel}>En revisión</Text>
+            </View>
+            <View style={styles.summaryStat}>
+              <Text style={styles.summaryValue}>{summary.oferta}</Text>
+              <Text style={styles.summaryLabel}>Ofertas</Text>
+            </View>
           </View>
         </View>
-      </Card>
 
-      <View style={[styles.fullWidth, { maxWidth: contentWidth }]}>
-        <SectionHeader title="Mis postulaciones" subtitle="Estados, recordatorios y próximos pasos" />
-      </View>
-      {CANDIDATE_APPLICATIONS.map((application) => {
-        const tone = statusTone[application.status];
-        return (
-          <Card
-            key={application.id}
-            style={[
-              styles.card,
-              { borderColor: tone.accent + '33', backgroundColor: tone.background },
-              styles.fullWidth,
-              { maxWidth: contentWidth },
-            ]}
-          >
-            <View style={styles.rowBetween}>
-              <View>
-                <Text style={styles.title} numberOfLines={2}>
-                  {application.title}
-                </Text>
-                <Text style={styles.subtitle} numberOfLines={1}>
-                  {application.company}
-                </Text>
+        <View style={styles.sectionHeaderWrap}>
+          <SectionHeader title="Mis postulaciones" subtitle="Estados, recordatorios y próximos pasos" accentColor={colors.candidate} />
+        </View>
+        {CANDIDATE_APPLICATIONS.map((application) => {
+          const tone = statusTone[application.status];
+          return (
+            <View
+              key={application.id}
+              style={[
+                styles.surfaceCard,
+                styles.card,
+                { borderColor: tone.accent + '33', backgroundColor: tone.background },
+              ]}
+            >
+              <View style={styles.rowBetween}>
+                <View>
+                  <Text style={styles.title} numberOfLines={2}>
+                    {application.title}
+                  </Text>
+                  <Text style={styles.subtitle} numberOfLines={1}>
+                    {application.company}
+                  </Text>
+                </View>
+                <StatusBadge label={tone.label} tone={tone.tone} />
               </View>
-              <StatusBadge label={tone.label} tone={tone.tone} />
+              <View style={styles.metaRow}>
+                <Meta icon="calendar" label={`Postulado: ${application.submittedAt}`} />
+                <Meta icon="clipboard" label={application.stage} />
+              </View>
+              <View style={styles.metaRow}>
+                <Meta icon="flag" label={`Prioridad ${application.priority}`} />
+                <Meta icon="file-text" label={`CV: ${application.title.replace(/\s+/g, '_')}.pdf`} />
+              </View>
+              {tone.note && <Text style={[styles.note, { color: tone.accent }]}>{tone.note}</Text>}
             </View>
-            <View style={styles.metaRow}>
-              <Meta icon="calendar" label={`Postulado: ${application.submittedAt}`} />
-              <Meta icon="clipboard" label={application.stage} />
-            </View>
-            <View style={styles.metaRow}>
-              <Meta icon="flag" label={`Prioridad ${application.priority}`} />
-              <Meta icon="file-text" label={`CV: ${application.title.replace(/\s+/g, '_')}.pdf`} />
-            </View>
-            {tone.note && <Text style={[styles.note, { color: tone.accent }]}>{tone.note}</Text>}
-          </Card>
-        );
-      })}
+          );
+        })}
+      </View>
     </ScrollView>
   );
 }
@@ -137,14 +138,34 @@ function Meta({ icon, label }: { icon: keyof typeof Feather.glyphMap; label: str
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    gap: 16,
-    paddingBottom: 120,
+  screen: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
   },
-  fullWidth: {
-    width: '100%',
-    alignSelf: 'center',
+  container: {
+    paddingVertical: 16,
+    paddingBottom: 140,
+  },
+  stack: {
+    gap: 16,
+  },
+  sectionHeaderWrap: {
+    marginTop: 4,
+  },
+  surfaceCard: {
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
+    padding: 16,
+  },
+  heroCard: {
+    gap: 10,
   },
   summaryEyebrow: {
     color: colors.muted,
@@ -165,14 +186,13 @@ const styles = StyleSheet.create({
   },
   summaryStat: {
     flex: 1,
-    backgroundColor: colors.surface,
-    borderRadius: 18,
+    minWidth: 110,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 14,
     paddingVertical: 12,
     alignItems: 'center',
-    shadowColor: '#0F172A',
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
   },
   summaryValue: {
     fontSize: 24,
@@ -186,7 +206,6 @@ const styles = StyleSheet.create({
   },
   card: {
     gap: 12,
-    borderWidth: 1,
   },
   rowBetween: {
     flexDirection: 'row',

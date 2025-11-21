@@ -102,12 +102,13 @@ function NavItem({
 const styles = StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: '#F9FAFB',
   },
   container: {
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 12,
+    backgroundColor: '#F9FAFB',
   },
   maxWidth: {
     width: '100%',
@@ -127,8 +128,9 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     shadowColor: '#0F172A',
     shadowOpacity: 0.08,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
   headerLeft: {
     flexDirection: 'row',
@@ -186,9 +188,9 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     shadowColor: '#0F172A',
     shadowOpacity: 0.08,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 4,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
   navItem: {
     flex: 1,
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 22,
   },
   navItemActive: {
-    backgroundColor: colors.candidateSurface,
+    backgroundColor: 'transparent',
   },
   navLabel: {
     fontSize: 12,
@@ -214,9 +216,9 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.surfaceMuted,
+    backgroundColor: 'transparent',
   },
   navIconActive: {
-    backgroundColor: colors.candidateSurface,
+    backgroundColor: 'transparent',
   },
 });

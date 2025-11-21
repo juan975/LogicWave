@@ -16,56 +16,58 @@ export function NotificationsScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: horizontalGutter }]}>
-      <View style={styles.tabBar}>
-        <TabButton label="Notificaciones" active={tab === 'feed'} onPress={() => setTab('feed')} />
-        <TabButton label="Configuración" active={tab === 'settings'} onPress={() => setTab('settings')} />
-      </View>
+    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+      <View style={[styles.stack, { paddingHorizontal: horizontalGutter, maxWidth: contentWidth, alignSelf: 'center' }]}>
+        <View style={[styles.tabBar, styles.surfaceCard]}>
+          <TabButton label="Notificaciones" active={tab === 'feed'} onPress={() => setTab('feed')} />
+          <TabButton label="Configuración" active={tab === 'settings'} onPress={() => setTab('settings')} />
+        </View>
 
-      {tab === 'feed' ? (
-        <>
-          <SectionHeader title="Resumen" subtitle="Últimas actualizaciones" />
-          {NOTIFICATION_ITEMS.map((item) => (
-            <Card key={item.id} style={[styles.notificationCard, styles.fullWidth, { maxWidth: contentWidth }]}>
-              <View style={styles.notificationHeader}>
-                <View style={styles.iconBadge}>
-                  <Text style={styles.iconBadgeText}>{item.title.charAt(0)}</Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.notificationTitle}>{item.title}</Text>
-                  <Text style={styles.notificationDescription}>{item.description}</Text>
-                  <View style={styles.notificationMeta}>
-                    <Text style={styles.notificationDate}>{item.date}</Text>
-                    <View style={[styles.categoryPill, { backgroundColor: getCategoryColor(item.category) + '20' }]}>
-                      <Text style={[styles.categoryText, { color: getCategoryColor(item.category) }]}>
-                        {item.category}
-                      </Text>
+        {tab === 'feed' ? (
+          <View style={styles.stack}>
+            <SectionHeader title="Resumen" subtitle="Últimas actualizaciones" accentColor={colors.candidate} />
+            {NOTIFICATION_ITEMS.map((item) => (
+              <View key={item.id} style={[styles.surfaceCard, styles.notificationCard]}>
+                <View style={styles.notificationHeader}>
+                  <View style={styles.iconBadge}>
+                    <Text style={styles.iconBadgeText}>{item.title.charAt(0)}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.notificationTitle}>{item.title}</Text>
+                    <Text style={styles.notificationDescription}>{item.description}</Text>
+                    <View style={styles.notificationMeta}>
+                      <Text style={styles.notificationDate}>{item.date}</Text>
+                      <View style={[styles.categoryPill, { backgroundColor: getCategoryColor(item.category) + '20' }]}>
+                        <Text style={[styles.categoryText, { color: getCategoryColor(item.category) }]}>
+                          {item.category}
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
               </View>
-            </Card>
-          ))}
-        </>
-      ) : (
-        <Card spacing="lg" style={[styles.fullWidth, { maxWidth: contentWidth }]}>
-          <SectionHeader title="Preferencias" subtitle="Activa los canales que prefieras" />
-          {preferences.map((pref) => (
-            <View key={pref.id} style={styles.preferenceRow}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.preferenceLabel}>{pref.label}</Text>
-                <Text style={styles.preferenceDescription}>{pref.description}</Text>
+            ))}
+          </View>
+        ) : (
+          <View style={[styles.surfaceCard, styles.preferencesCard]}>
+            <SectionHeader title="Preferencias" subtitle="Activa los canales que prefieras" accentColor={colors.candidate} />
+            {preferences.map((pref) => (
+              <View key={pref.id} style={styles.preferenceRow}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.preferenceLabel}>{pref.label}</Text>
+                  <Text style={styles.preferenceDescription}>{pref.description}</Text>
+                </View>
+                <Switch
+                  trackColor={{ false: '#CBD5F5', true: '#A7F3D0' }}
+                  thumbColor={pref.enabled ? colors.candidate : '#fff'}
+                  value={pref.enabled}
+                  onValueChange={() => togglePreference(pref.id)}
+                />
               </View>
-              <Switch
-                trackColor={{ false: '#CBD5F5', true: '#A7F3D0' }}
-                thumbColor={pref.enabled ? colors.candidate : '#fff'}
-                value={pref.enabled}
-                onValueChange={() => togglePreference(pref.id)}
-              />
-            </View>
-          ))}
-        </Card>
-      )}
+            ))}
+          </View>
+        )}
+      </View>
     </ScrollView>
   );
 }
@@ -73,7 +75,9 @@ export function NotificationsScreen() {
 function TabButton({ label, active, onPress }: { label: string; active: boolean; onPress: () => void }) {
   return (
     <Pressable onPress={onPress} style={[styles.tabButton, active && styles.tabButtonActive]}>
-      <Text style={[styles.tabButtonText, active && styles.tabButtonTextActive]}>{label}</Text>
+      <Text style={[styles.tabButtonText, active && styles.tabButtonTextActive]} numberOfLines={1} adjustsFontSizeToFit>
+        {label}
+      </Text>
     </Pressable>
   );
 }
@@ -92,14 +96,30 @@ function getCategoryColor(category?: string) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    gap: 16,
-    paddingBottom: 120,
+  screen: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
   },
-  fullWidth: {
+  content: {
+    paddingVertical: 16,
+    paddingBottom: 140,
+  },
+  stack: {
+    gap: 14,
     width: '100%',
-    alignSelf: 'center',
+  },
+  surfaceCard: {
+    width: '100%',
+    backgroundColor: colors.surface,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
+    padding: 14,
   },
   centerEyebrow: {
     textTransform: 'uppercase',
@@ -117,21 +137,24 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    borderRadius: 18,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderRadius: 16,
     padding: 4,
     gap: 6,
+    width: '100%',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-between',
   },
   tabButton: {
     flex: 1,
     paddingVertical: 10,
+    minHeight: 44,
+    paddingHorizontal: 12,
+    minWidth: 120,
     borderRadius: 14,
     alignItems: 'center',
   },
   tabButtonActive: {
-    backgroundColor: colors.candidateSurface,
+    backgroundColor: colors.surfaceMuted,
   },
   tabButtonText: {
     color: colors.textSecondary,
@@ -156,6 +179,9 @@ const styles = StyleSheet.create({
   },
   notificationCard: {
     padding: 16,
+  },
+  preferencesCard: {
+    gap: 12,
   },
   notificationHeader: {
     flexDirection: 'row',
