@@ -173,10 +173,10 @@ export default function ApplicationsScreen() {
 
   const getStatusBadge = (status: ApplicationStatus) => {
     const badges = {
-      pending: { label: "Pend.", bg: "#FEF3C7", color: "#92400E" },
-      review: { label: "Rev.", bg: "#DBEAFE", color: "#1E40AF" },
-      accepted: { label: "Acept.", bg: "#D1FAE5", color: "#065F46" },
-      rejected: { label: "Rech.", bg: "#FEE2E2", color: "#991B1B" },
+      pending: { label: "Pendiente", bg: "#FEF3C7", color: "#92400E" },
+      review: { label: "En Revisión", bg: "#DBEAFE", color: "#1E40AF" },
+      accepted: { label: "Aceptado", bg: "#D1FAE5", color: "#065F46" },
+      rejected: { label: "Rechazado", bg: "#FEE2E2", color: "#991B1B" },
     };
     return badges[status] || badges.pending;
   };
@@ -191,10 +191,10 @@ export default function ApplicationsScreen() {
         <View style={styles.pageStack}>
           <View style={[styles.surfaceCard, styles.block]}>
             <View style={styles.statsContainer}>
-              <StatBox label="Total" value={stats.total} />
-              <StatBox label="Pend." value={stats.pending} color="#F59E0B" />
-              <StatBox label="Revisión" value={stats.review} color="#3B82F6" />
-              <StatBox label="Acept." value={stats.accepted} color="#10B981" />
+              <StatBox label="Total" value={stats.total} isDesktop={isDesktop} />
+              <StatBox label="Pendiente" value={stats.pending} color="#F59E0B" isDesktop={isDesktop} />
+              <StatBox label="En Revisión" value={stats.review} color="#3B82F6" isDesktop={isDesktop} />
+              <StatBox label="Aceptado" value={stats.accepted} color="#10B981" isDesktop={isDesktop} />
             </View>
           </View>
 
@@ -389,11 +389,9 @@ export default function ApplicationsScreen() {
 
             <View style={styles.modalActions}>
               <TouchableOpacity style={styles.selectButton} onPress={handleSelectCandidate}>
-                <Feather name="check-circle" size={18} color="#fff" />
-                <Text style={styles.selectButtonText}>Seleccionar Candidato</Text>
+                <Text style={styles.selectButtonText}>Agregar Candidato</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.rejectButton} onPress={handleReject}>
-                <Feather name="x-circle" size={18} color="#6B7280" />
                 <Text style={styles.rejectButtonText}>Rechazar</Text>
               </TouchableOpacity>
             </View>
@@ -404,9 +402,9 @@ export default function ApplicationsScreen() {
   );
 }
 
-function StatBox({ label, value, color }: { label: string; value: number; color?: string }) {
+function StatBox({ label, value, color, isDesktop }: { label: string; value: number; color?: string; isDesktop: boolean }) {
   return (
-    <View style={styles.statBox}>
+    <View style={[styles.statBox, !isDesktop && styles.statBoxMobile]}>
       <Text style={[styles.statNumber, color ? { color } : undefined]}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
     </View>
@@ -471,10 +469,6 @@ function ApplicationCard({
                 <Feather name="eye" size={14} color="#1F2937" />
                 <Text style={styles.viewProfileText}>Ver Perfil</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.statusButton}>
-                <Text style={styles.statusButtonText}>Pendiente</Text>
-                <Feather name="chevron-down" size={14} color="#6B7280" />
-              </TouchableOpacity>
             </View>
           </View>
         </>
@@ -538,13 +532,17 @@ const styles = StyleSheet.create({
   },
   statBox: {
     flex: 1,
-    minWidth: 70,
+    minWidth: 120,
     backgroundColor: "#F9FAFB",
     padding: 12,
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#E5E7EB",
+  },
+  statBoxMobile: {
+    flexBasis: "48%",
+    maxWidth: "48%",
   },
   statNumber: {
     fontSize: 20,
@@ -604,14 +602,13 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   viewTabsCard: {
-    flexWrap: "wrap",
-    paddingVertical: 12,
+    flexDirection: "row",
+    alignItems: "stretch",
     gap: 10,
+    paddingVertical: 12,
   },
   viewTab: {
-    flexGrow: 1,
-    flexBasis: "45%",
-    minWidth: 140,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -677,10 +674,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E5E7EB",
     shadowColor: "#0F172A",
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 2,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
   cardHeader: {
     flexDirection: "row",
@@ -930,6 +927,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
+  },
+  skillChip: {
+    backgroundColor: "#EEF2FF",
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  skillChipText: {
+    color: "#1F2937",
+    fontSize: 12,
+    fontWeight: "700",
   },
   skillChipModal: {},
   cvDownload: {

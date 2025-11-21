@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useResponsiveLayout } from '@/hooks/useResponsive';
@@ -66,7 +67,7 @@ export function JobDiscoveryScreen() {
     });
   }, [filters]);
 
-  const widthLimiter = useMemo(
+  const widthLimiter = useMemo<ViewStyle>(
     () => ({
       width: '100%',
       maxWidth: contentWidth,

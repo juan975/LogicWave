@@ -34,10 +34,10 @@ export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <View style={[styles.container, { paddingHorizontal: horizontalGutter }]}>
-        {/* Header simple */}
-        <View style={[styles.maxWidth, { maxWidth: contentWidth }]}>
-          <View style={styles.header}>
+      <View style={styles.container}>
+        {/* Appbar */}
+        <View style={styles.appBar}>
+          <View style={[styles.appBarContent, { maxWidth: contentWidth, paddingHorizontal: horizontalGutter }]}>
             <View style={styles.headerLeft}>
               <Image source={logo} style={styles.logo} />
               <View>
@@ -52,30 +52,25 @@ export function EmployerShell({ userData, onLogout }: EmployerShellProps) {
         </View>
 
         {/* Contenido */}
-        <View style={[styles.contentWrapper, styles.maxWidth, { maxWidth: contentWidth }]}>
-          <View style={styles.content}>{renderScreen()}</View>
-        </View>
+        <View style={styles.body}>{renderScreen()}</View>
 
         {/* Navbar inferior */}
-        <View style={[styles.navbar, styles.maxWidth, { maxWidth: contentWidth }]}>
-          <EmployerNavItem
-            icon="briefcase"
-            label="Ofertas"
-            active={tab === 'offers'}
-            onPress={() => setTab('offers')}
-          />
-          <EmployerNavItem
-            icon="users"
-            label="Postulaciones"
-            active={tab === 'applications'}
-            onPress={() => setTab('applications')}
-          />
-          <EmployerNavItem
-            icon="home"
-            label="Empresa"
-            active={tab === 'profile'}
-            onPress={() => setTab('profile')}
-          />
+        <View style={styles.navWrapper}>
+          <View style={[styles.navbar, { maxWidth: contentWidth, paddingHorizontal: horizontalGutter }]}>
+            <EmployerNavItem
+              icon="briefcase"
+              label="Ofertas"
+              active={tab === 'offers'}
+              onPress={() => setTab('offers')}
+            />
+            <EmployerNavItem
+              icon="users"
+              label="Postulaciones"
+              active={tab === 'applications'}
+              onPress={() => setTab('applications')}
+            />
+            <EmployerNavItem icon="home" label="Empresa" active={tab === 'profile'} onPress={() => setTab('profile')} />
+          </View>
         </View>
       </View>
     </SafeAreaView>
@@ -114,24 +109,20 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    backgroundColor: '#F9FAFB',
   },
-  maxWidth: {
-    width: '100%',
-    alignSelf: 'center',
-  },
-  contentWrapper: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+  appBar: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
+  },
+  appBarContent: {
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 14,
   },
   headerLeft: {
     flexDirection: 'row',
@@ -156,18 +147,23 @@ const styles = StyleSheet.create({
   logoutBtn: {
     padding: 8,
   },
-  content: {
+  body: {
     flex: 1,
+    backgroundColor: '#F9FAFB',
+    paddingTop: 15,
+  },
+  navWrapper: {
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    backgroundColor: '#fff',
   },
   navbar: {
+    width: '100%',
+    alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
     paddingVertical: 12,
-    paddingHorizontal: 20,
   },
   navItem: {
     alignItems: 'center',
